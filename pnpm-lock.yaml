@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@babel/core': ^7.12.9
+  '@tanstack/react-query': ^4.24.6
   '@types/react': ~18.0.14
   '@types/react-native': ~0.70.6
   expo: ~47.0.12
@@ -15,6 +16,7 @@ specifiers:
   typescript: ^4.6.3
 
 dependencies:
+  '@tanstack/react-query': 4.24.6_2bkajway7msrchxwrvhplxy5ru
   expo: 47.0.13_@babel+core@7.20.12
   expo-status-bar: 1.4.2
   nativewind: 2.0.11_55hxzlvkgtwricihvhqiot4r6a
@@ -2084,6 +2086,29 @@ packages:
 
   /@sinclair/typebox/0.25.21:
     resolution: {integrity: sha512-gFukHN4t8K4+wVC+ECqeqwzBDeFeTzBXroBTqE6vcWrQGbEUpHO7LYdG0f4xnvYq4VOEwITSlHlp0JBAIFMS/g==}
+    dev: false
+
+  /@tanstack/query-core/4.24.6:
+    resolution: {integrity: sha512-Tfru6YTDTCpX7dKVwHp/sosw/dNjEdzrncduUjIkQxn7n7u+74HT2ZrGtwwrU6Orws4x7zp3FKRqBPWVVhpx9w==}
+    dev: false
+
+  /@tanstack/react-query/4.24.6_2bkajway7msrchxwrvhplxy5ru:
+    resolution: {integrity: sha512-pbJUVZCS4pcXS0kZiY+mVJ01ude0GrH5OXT2g9whcqSveRG/YVup/XdA9NdRpSMGkP2HxDRxxRNsTXkniWeIIA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@tanstack/query-core': 4.24.6
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
+      react-native: 0.70.5_7vw2fevm7cxfkwynop5qx4c5l4
+      use-sync-external-store: 1.2.0_react@18.1.0
     dev: false
 
   /@types/istanbul-lib-coverage/2.0.4:
