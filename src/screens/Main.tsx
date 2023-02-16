@@ -1,25 +1,22 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import { useQuery } from '@tanstack/react-query';
-import { API_KEY } from '../env';
+import { FlatList, Text, View } from 'react-native';
+import { useGetMovies } from '~/api/movies';
+import MovieCard from '~/components/MovieCard';
 
 const Main: React.FC = () => {
-  const { data } = useQuery({
-    queryKey: ['movies'],
-    queryFn: async () => {
-      const currentDate = new Date().toISOString().slice(0, 10);
-      return (
-        await fetch(
-          `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&vote_count.gte=50&include_adult=false&include_video=false&primary_release_date.gte=1980-01-01&primary_release_date.lte=${currentDate}`,
-        )
-      ).json();
-    },
-  });
+  const { isLoading, data } = useGetMovies();
   return (
     <View>
-      {data.results.map((d: any) => (
-        <Text>{d.title}</Text>
-      ))}
+      {isLoading ? (
+        <Text>Loading</Text>
+      ) : (
+        <FlatList
+          data={data}
+          renderItem={({ item }) => <MovieCard movie={item} />}
+          keyExtractor={movie => `${movie.id}`}
+          horizontal
+        />
+      )}
     </View>
   );
 };
