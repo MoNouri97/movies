@@ -1,17 +1,17 @@
-import { Text, TextProps } from 'react-native';
+import { Text, TextProps } from "react-native";
 
 const TextStyles = {
   TITLE: {
     fontSize: 25,
-    fontFamily: 'DMSans_700Bold',
+    fontFamily: "DMSans_700Bold",
   },
   SUBTITLE: {
     fontSize: 16,
-    fontFamily: 'DMSans_500Medium',
+    fontFamily: "DMSans_500Medium",
   },
   LABEL: {
     fontSize: 16,
-    fontFamily: 'DMSans_400Regular',
+    fontFamily: "DMSans_400Regular",
     opacity: 0.5,
   },
 };
@@ -20,10 +20,10 @@ const TextStyles = {
 
 type Props = { variant?: keyof typeof TextStyles } & TextProps;
 
-const AppText: React.FC<Props> = ({ variant = 'LABEL', style, ...props }) => {
+const AppText: React.FC<Props> = ({ variant = "LABEL", style, ...props }) => {
   return (
     <Text
-      className='text-white'
+      className="text-white"
       style={[style, TextStyles[variant]]}
       {...props}
     />

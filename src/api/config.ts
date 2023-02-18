@@ -1,13 +1,13 @@
-import axios from 'axios';
-import { API_KEY } from 'env';
+import axios from "axios";
+import { API_KEY } from "env";
 
-export const URL = 'https://api.themoviedb.org/';
-export const API = '/3';
+export const URL = "https://api.themoviedb.org/";
+export const API = "/3";
 export const api = axios.create({
   baseURL: URL + API,
 });
 
-api.interceptors.request.use(async request => {
+api.interceptors.request.use(async (request) => {
   console.log(`
 -------------
 API CALL >>> ${request.baseURL}${request.url}
