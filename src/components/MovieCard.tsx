@@ -1,6 +1,7 @@
-import { Image, Text, View } from 'react-native';
-import { getImage } from '~/api/images';
-import { Movie } from '~/domain/movie';
+import { Image, View } from "react-native";
+import { getImage } from "~/api/images";
+import AppText from "~/components/AppText";
+import { Movie } from "~/domain/movie";
 
 type Props = {
   movie: Movie;
@@ -8,12 +9,14 @@ type Props = {
 
 const MovieCard: React.FC<Props> = ({ movie }) => {
   return (
-    <View className='items-center justify-center mx-2'>
+    <View className="mx-2 h-[320px] items-center justify-start">
       <Image
-        source={{ uri: getImage(movie.poster_path, '300') }}
-        className='w-44 h-64 rounded-3xl'
+        source={{ uri: getImage(movie.poster_path, "200") }}
+        className="h-64 w-40 rounded-3xl"
       />
-      <Text className='py-4 max-w-[150px] text-center'>{movie.title}</Text>
+      <AppText variant="SUBTITLE" className="mt-2 max-w-[150px] text-center">
+        {movie.title}
+      </AppText>
     </View>
   );
 };
