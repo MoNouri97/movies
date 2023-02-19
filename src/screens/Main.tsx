@@ -10,8 +10,8 @@ import {
 } from "react-native";
 import { useGetMovies } from "~/api/movies";
 import AppScreen, { statusBarPadding } from "~/components/AppScreen";
-import AppText from "~/components/AppText";
 import MovieCard from "~/components/MovieCard";
+import SectionTitle from "~/components/SectionTitle";
 import Tags from "~/components/Tags";
 import { ParamList } from "~/domain/navigation";
 
@@ -28,32 +28,29 @@ const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
       </View>
       <View className="ml-6 flex justify-start">
         <Tags />
-        <View className="mr-6 flex flex-row items-center justify-between">
-          <AppText variant="TITLE">Trending</AppText>
-          <TouchableOpacity onPress={() => console.log("hello")}>
-            <AppText variant="LABEL">See All</AppText>
-          </TouchableOpacity>
+        <View className="">
+          <SectionTitle title="Trending" onSeeAllPress={() => {}} />
         </View>
       </View>
       {isLoading ? (
         <Text>Loading</Text>
       ) : (
-        <FlatList
-          data={data}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.navigate("Movie")}>
-              <MovieCard movie={item} />
-            </TouchableOpacity>
-          )}
-          keyExtractor={(movie) => `${movie.id}`}
-          horizontal
-          contentContainerStyle={{
-            alignItems: "flex-start",
-          }}
-          className="p-4"
-        />
+        <View>
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            data={data}
+            renderItem={({ item }) => (
+              <TouchableOpacity onPress={() => navigation.navigate("Movie")}>
+                <MovieCard movie={item} />
+              </TouchableOpacity>
+            )}
+            keyExtractor={(movie) => `${movie.id}`}
+            horizontal
+            className="p-4"
+          />
+        </View>
       )}
-      <View className="my-4 mx-2 h-16 rounded-b-3xl rounded-t-md bg-neutral-700/50"></View>
+      <View className="absolute bottom-0 left-0 right-0 my-4 mx-2 h-16 rounded-b-3xl rounded-t-md bg-neutral-700/50"></View>
     </AppScreen>
   );
 };

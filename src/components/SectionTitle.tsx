@@ -1,11 +1,21 @@
-import { Text, View } from "react-native";
+import { GestureResponderEvent, TouchableOpacity, View } from "react-native";
+import AppText from "~/components/AppText";
 
-type Props = {};
+type Props = {
+  title: string;
+  seeAll?: true;
+  onSeeAllPress?: (event: GestureResponderEvent) => void;
+};
 
-const SectionTitle: React.FC<Props> = ({}) => {
+const SectionTitle = ({ title, onSeeAllPress }: Props) => {
   return (
-    <View>
-      <Text>Hello From SectionTitle</Text>
+    <View className="mr-6 flex-row items-center justify-between ">
+      <AppText variant="TITLE">{title}</AppText>
+      {onSeeAllPress && (
+        <TouchableOpacity onPress={onSeeAllPress}>
+          <AppText variant="LABEL">See All</AppText>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
