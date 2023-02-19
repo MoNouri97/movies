@@ -1,6 +1,6 @@
 import { Image, View } from "react-native";
 import { getImage } from "~/api/images";
-import AppText from "~/components/AppText";
+import Rating from "~/components/Rating";
 import { Movie } from "~/domain/movie";
 
 type Props = {
@@ -14,9 +14,10 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
         source={{ uri: getImage(movie.poster_path, "200") }}
         className="h-52 w-36 rounded-xl"
       />
-      <AppText variant="LABEL" className="mt-2 max-w-[150px] text-center">
+      {/* <AppText variant="LABEL" className="mt-2 max-w-[150px] text-center">
         {movie.title}
-      </AppText>
+      </AppText> */}
+      <Rating rating={movie.vote_average} />
     </View>
   );
 };

@@ -24,7 +24,7 @@ const AppText: React.FC<Props> = ({ variant = "LABEL", style, ...props }) => {
   return (
     <Text
       className="text-white"
-      style={[style, TextStyles[variant]]}
+      style={[TextStyles[variant], style]}
       {...props}
     />
   );

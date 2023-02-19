@@ -18,6 +18,9 @@ type Props = {
   children?: ReactNode;
 };
 
+export const statusBarPadding =
+  Platform.OS === "android" ? StatusBar.currentHeight : 0;
+
 const AppScreen: React.FC<Props> = ({
   children,
   style,
@@ -32,10 +35,10 @@ const AppScreen: React.FC<Props> = ({
       style={[
         style,
         safe && {
-          paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+          paddingTop: statusBarPadding,
         },
       ]}
-      className="bg-slate-800"
+      className="min-h-full bg-neutral-900"
     >
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
