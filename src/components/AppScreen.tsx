@@ -21,7 +21,7 @@ type Props = {
 export const statusBarPadding =
   Platform.OS === "android" ? StatusBar.currentHeight : 0;
 
-const AppScreen: React.FC<Props> = ({
+const AppScrollingScreen: React.FC<Props> = ({
   children,
   style,
   title,
@@ -64,4 +64,34 @@ const AppScreen: React.FC<Props> = ({
     </SafeAreaView>
   );
 };
-export default AppScreen;
+
+export const AppScreen = ({
+  children,
+  style,
+  title,
+  safe = false,
+  center = false,
+  autoScroll = false,
+}: Props) => {
+  return (
+    <SafeAreaView
+      style={[
+        style,
+        safe && {
+          paddingTop: statusBarPadding,
+        },
+      ]}
+      className="flex-1 bg-neutral-900"
+    >
+      <View
+        className={`grow ${
+          center ? "justify-evenly" : "justify-start"
+        } relative min-h-screen`}
+      >
+        {children}
+      </View>
+    </SafeAreaView>
+  );
+};
+
+export default AppScrollingScreen;

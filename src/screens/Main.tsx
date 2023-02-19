@@ -3,13 +3,14 @@ import React from "react";
 import {
   FlatList,
   Image,
-  Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 import { useGetMovies } from "~/api/movies";
-import AppScreen, { statusBarPadding } from "~/components/AppScreen";
+import AppScrollingScreen, { statusBarPadding } from "~/components/AppScreen";
+import AppText from "~/components/AppText";
+import BottomBar from "~/components/BottomBar";
 import MovieCard from "~/components/MovieCard";
 import SectionTitle from "~/components/SectionTitle";
 import Tags from "~/components/Tags";
@@ -18,7 +19,7 @@ import { ParamList } from "~/domain/navigation";
 const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
   const { isLoading, data } = useGetMovies();
   return (
-    <AppScreen>
+    <AppScrollingScreen>
       <Image
         source={require("assets/Background.png")}
         className="absolute h-full opacity-30"
@@ -28,12 +29,13 @@ const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
       </View>
       <View className="ml-6 flex justify-start">
         <Tags />
-        <View className="">
-          <SectionTitle title="Trending" onSeeAllPress={() => {}} />
-        </View>
+        <SectionTitle
+          title="Trending"
+          onSeeAllPress={() => navigation.navigate("Movies")}
+        />
       </View>
       {isLoading ? (
-        <Text>Loading</Text>
+        <AppText>Loading</AppText>
       ) : (
         <View>
           <FlatList
@@ -46,12 +48,15 @@ const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
             )}
             keyExtractor={(movie) => `${movie.id}`}
             horizontal
-            className="p-4"
+            className="h-72 p-4"
           />
         </View>
       )}
-      <View className="absolute bottom-0 left-0 right-0 my-4 mx-2 h-16 rounded-b-3xl rounded-t-md bg-neutral-700/50"></View>
-    </AppScreen>
+      <View className="ml-6 flex justify-start">
+        <SectionTitle title="Recently Viewed" />
+      </View>
+      <BottomBar />
+    </AppScrollingScreen>
   );
 };
 export default Main;

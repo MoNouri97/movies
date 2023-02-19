@@ -6,7 +6,6 @@ type Props = { rating?: number };
 
 const Rating: React.FC<Props> = ({ rating = 0 }) => {
   const stars = Math.floor(rating / 2);
-  const halfStar = rating / 2 - stars >= 0.5;
 
   return (
     <View className="my-2 flex-row gap-x-2">
@@ -16,7 +15,11 @@ const Rating: React.FC<Props> = ({ rating = 0 }) => {
         .map((_, i) => (
           <FontAwesome key={i} name="star" size={14} color="#F2A33A" />
         ))}
-      {halfStar && <FontAwesome name="star-half" size={14} color="#F2A33A" />}
+      {Array(5 - stars)
+        .fill("")
+        .map((_, i) => (
+          <FontAwesome key={i} name="star-o" size={14} color="#555" />
+        ))}
     </View>
   );
 };

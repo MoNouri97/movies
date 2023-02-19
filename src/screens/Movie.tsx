@@ -1,13 +1,13 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { View } from "react-native";
-import AppScreen from "~/components/AppScreen";
+import AppScrollingScreen from "~/components/AppScreen";
 import AppText from "~/components/AppText";
 
 type Props = NativeStackScreenProps<{}>;
 
 const Movie = ({}: Props) => {
   return (
-    <AppScreen safe>
+    <AppScrollingScreen safe>
       {/* <Image
         source={require("assets/Background.png")}
         className="absolute opacity-40"
@@ -15,7 +15,7 @@ const Movie = ({}: Props) => {
       <View className="flex-1 items-center justify-center">
         <AppText>Movie Screen</AppText>
       </View>
-    </AppScreen>
+    </AppScrollingScreen>
   );
 };
 export default Movie;
