@@ -1,6 +1,6 @@
-import api from "~/api/config";
-import { MoviesResponse } from "~/domain/movie";
 import { useQuery } from "@tanstack/react-query";
+import api from "~/api/config";
+import { DetailedMovie, MoviesResponse } from "~/domain/movie";
 
 export const useGetMovies = () => {
   return useQuery({
@@ -12,6 +12,19 @@ export const useGetMovies = () => {
       );
 
       return response.data.results;
+    },
+  });
+};
+
+export const useGetMovie = (id: number) => {
+  return useQuery({
+    queryKey: ["movie", id],
+    queryFn: async () => {
+      const response = await api.get<DetailedMovie>(
+        `movie/${id}?language=en-US`
+      );
+
+      return response.data;
     },
   });
 };

@@ -38,11 +38,11 @@ const AppScrollingScreen: React.FC<Props> = ({
           paddingTop: statusBarPadding,
         },
       ]}
-      className="flex-1 bg-neutral-900"
+      className="flex-1 shrink-0 bg-neutral-900"
     >
       <ScrollView
         className="flex-1"
-        contentContainerStyle={{ flex: 1 }}
+        contentContainerStyle={{ flexGrow: 1 }}
         bounces={false}
         ref={ref}
         onContentSizeChange={
@@ -53,13 +53,13 @@ const AppScrollingScreen: React.FC<Props> = ({
               }
         }
       >
-        <View
+        {/* <View
           className={`grow ${
             center ? "justify-evenly" : "justify-start"
           } relative min-h-screen`}
-        >
-          {children}
-        </View>
+        > */}
+        {children}
+        {/* </View> */}
       </ScrollView>
     </SafeAreaView>
   );

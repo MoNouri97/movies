@@ -13,6 +13,7 @@ specifiers:
   babel-plugin-module-resolver: ^5.0.0
   expo: ~47.0.12
   expo-font: ~11.0.1
+  expo-linear-gradient: ~12.0.1
   expo-splash-screen: ~0.17.5
   expo-status-bar: ~1.4.2
   nativewind: ^2.0.11
@@ -37,6 +38,7 @@ dependencies:
   axios: 1.3.3
   expo: 47.0.13_@babel+core@7.20.12
   expo-font: 11.0.1_expo@47.0.13
+  expo-linear-gradient: 12.0.1_expo@47.0.13
   expo-splash-screen: 0.17.5_expo@47.0.13
   expo-status-bar: 1.4.2
   nativewind: 2.0.11_55hxzlvkgtwricihvhqiot4r6a
@@ -3672,6 +3674,14 @@ packages:
 
   /expo-keep-awake/11.0.1_expo@47.0.13:
     resolution: {integrity: sha512-44ZjgLE4lnce2d40Pv8xsjMVc6R5GvgHOwZfkLYtGmgYG9TYrEJeEj5UfSeweXPL3pBFhXKfFU8xpGYMaHdP0A==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 47.0.13_@babel+core@7.20.12
+    dev: false
+
+  /expo-linear-gradient/12.0.1_expo@47.0.13:
+    resolution: {integrity: sha512-TMl/wBTVQOliL4S3DS5Aa3UFfVySr0mdJEHLG6kfBdMCLkr+tfLI2rGyJ+scS7xgMsvhTIaurhf1+Z0sL3aLCg==}
     peerDependencies:
       expo: '*'
     dependencies:

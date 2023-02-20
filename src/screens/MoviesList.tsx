@@ -26,7 +26,9 @@ const MoviesList = ({ navigation, route }: Props) => {
           <FlatList
             data={data}
             renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => navigation.navigate("Movie")}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Movie", { id: item.id })}
+              >
                 <MovieCard movie={item} showTitle />
               </TouchableOpacity>
             )}

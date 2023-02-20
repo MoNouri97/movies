@@ -2,7 +2,7 @@ import axios from "axios";
 import { API_KEY } from "env";
 
 export const URL = "https://api.themoviedb.org/";
-export const API = "/3";
+export const API = "3/";
 export const api = axios.create({
   baseURL: URL + API,
 });

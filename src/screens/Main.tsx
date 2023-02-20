@@ -42,7 +42,9 @@ const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
             showsHorizontalScrollIndicator={false}
             data={data}
             renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => navigation.navigate("Movie")}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Movie", { id: item.id })}
+              >
                 <MovieCard movie={item} />
               </TouchableOpacity>
             )}

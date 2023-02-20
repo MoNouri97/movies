@@ -2,10 +2,10 @@ import { Image, View } from "react-native";
 import { getImage } from "~/api/images";
 import AppText from "~/components/AppText";
 import Rating from "~/components/Rating";
-import { Movie } from "~/domain/movie";
+import { SimpleMovie } from "~/domain/movie";
 
 type Props = {
-  movie: Movie;
+  movie: SimpleMovie;
   showTitle?: boolean;
 };
 export const CARD_HEIGHT = 300;

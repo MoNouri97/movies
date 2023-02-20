@@ -1,5 +1,5 @@
 export type ParamList = {
   Main: undefined;
-  Movie: undefined;
+  Movie: { id: number };
   Movies: undefined;
 };
