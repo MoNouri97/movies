@@ -3,6 +3,7 @@ import {
   Platform,
   SafeAreaView,
   ScrollView,
+  ScrollViewProps,
   StatusBar,
   StyleProp,
   View,
@@ -15,6 +16,7 @@ type Props = {
   center?: boolean;
   autoScroll?: boolean;
   safe?: boolean;
+  scrollViewProps?: ScrollViewProps;
   children?: ReactNode;
 };
 
@@ -25,6 +27,7 @@ const AppScrollingScreen: React.FC<Props> = ({
   children,
   style,
   title,
+  scrollViewProps,
   safe = false,
   center = false,
   autoScroll = false,
@@ -52,14 +55,9 @@ const AppScrollingScreen: React.FC<Props> = ({
                 ref.current?.scrollToEnd();
               }
         }
+        {...scrollViewProps}
       >
-        {/* <View
-          className={`grow ${
-            center ? "justify-evenly" : "justify-start"
-          } relative min-h-screen`}
-        > */}
         {children}
-        {/* </View> */}
       </ScrollView>
     </SafeAreaView>
   );

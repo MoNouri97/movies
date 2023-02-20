@@ -13,7 +13,6 @@ import AppText from "~/components/AppText";
 import BottomBar from "~/components/BottomBar";
 import MovieCard from "~/components/MovieCard";
 import SectionTitle from "~/components/SectionTitle";
-import Tags from "~/components/Tags";
 import { ParamList } from "~/domain/navigation";
 
 const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
@@ -28,7 +27,6 @@ const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
         <TextInput className="m-6 h-10 rounded-xl bg-neutral-700/40 px-4 text-white" />
       </View>
       <View className="ml-6 flex justify-start">
-        <Tags />
         <SectionTitle
           title="Trending"
           onSeeAllPress={() => navigation.navigate("Movies")}
