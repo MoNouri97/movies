@@ -3,6 +3,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Image, View } from "react-native";
 import { getImage } from "~/api/images";
 import { useGetMovie } from "~/api/movies";
+import { useGetCredits } from "~/api/people";
 import AppScrollingScreen from "~/components/AppScreen";
 import AppText from "~/components/AppText";
 import Rating from "~/components/Rating";
@@ -13,6 +14,7 @@ type Props = NativeStackScreenProps<ParamList, "Movie">;
 
 const Movie = ({ route }: Props) => {
   const { isLoading, data } = useGetMovie(route.params.id);
+  const { isLoading: loading, data: credits } = useGetCredits(route.params.id);
 
   if (isLoading || data == undefined) {
     return <AppText>Loading</AppText>;
