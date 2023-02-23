@@ -3,9 +3,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Image, View } from "react-native";
 import { getImage } from "~/api/images";
 import { useGetMovie } from "~/api/movies";
-import { useGetCredits } from "~/api/people";
 import AppScrollingScreen from "~/components/AppScreen";
 import AppText from "~/components/AppText";
+import Credits from "~/components/Credits";
 import Rating from "~/components/Rating";
 import Tags from "~/components/Tags";
 import { ParamList } from "~/domain/navigation";
@@ -14,7 +14,6 @@ type Props = NativeStackScreenProps<ParamList, "Movie">;
 
 const Movie = ({ route }: Props) => {
   const { isLoading, data } = useGetMovie(route.params.id);
-  const { isLoading: loading, data: credits } = useGetCredits(route.params.id);
 
   if (isLoading || data == undefined) {
     return <AppText>Loading</AppText>;
@@ -42,8 +41,7 @@ const Movie = ({ route }: Props) => {
         <Tags genres={data.genres} />
         <AppText className="my-4 text-purple-400 ">The Plot</AppText>
         <AppText>{data.overview}</AppText>
-        <AppText className="my-4 text-purple-400 ">Director</AppText>
-        <AppText>{data.tagline}</AppText>
+        <Credits id={route.params.id} />
       </View>
     </AppScrollingScreen>
   );
