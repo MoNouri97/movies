@@ -3,10 +3,10 @@ import api from "~/api/config";
 import { DetailedMovie, MoviesResponse } from "~/domain/movie";
 
 export const useGetMovies = (
-  page: number,
-  genres: number[],
-  rating: number[],
-  sort: string
+  page = 1,
+  genres?: number[],
+  rating?: [number, number],
+  sort?: string
 ) => {
   return useQuery({
     queryKey: ["movies"],

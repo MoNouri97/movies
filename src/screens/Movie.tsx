@@ -1,3 +1,4 @@
+import { FontAwesome } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
 import { Image, View } from "react-native";
@@ -9,7 +10,6 @@ import Credits from "~/components/Credits";
 import Rating from "~/components/Rating";
 import Tags from "~/components/Tags";
 import { ParamList } from "~/domain/navigation";
-
 type Props = NativeStackScreenProps<ParamList, "Movie">;
 
 const Movie = ({ route }: Props) => {
@@ -31,15 +31,25 @@ const Movie = ({ route }: Props) => {
           colors={["rgba(0, 0, 0, 0)", "rgb(23,23,23)"]}
           className="h-full w-screen"
         />
-        <View className="absolute bottom-4 w-[350] px-4">
-          <Rating alt rating={data?.vote_average} count={data?.vote_count} />
-          <AppText variant="TITLE">{data?.title}</AppText>
-          <AppText className="text-purple-400 ">{data.tagline}</AppText>
+        <View className="absolute bottom-4 w-full px-8">
+          <FontAwesome
+            name="heart-o"
+            size={26}
+            color="white"
+            style={{ position: "absolute", bottom: 50, right: 50 }}
+          />
+          <View className="absolute bottom-4 w-[300] px-4">
+            <Rating alt rating={data?.vote_average} count={data?.vote_count} />
+            <AppText variant="TITLE">{data?.title}</AppText>
+            <AppText className="text-purple-400 ">{data.tagline}</AppText>
+          </View>
         </View>
       </View>
-      <View className="z-10 h-[600] bg-neutral-900 px-4">
+      <View className="z-10 min-h-[600] bg-neutral-900 px-4">
         <Tags genres={data.genres} />
-        <AppText className="my-4 text-purple-400 ">The Plot</AppText>
+        <AppText variant="SUBTITLE" className="my-4">
+          The Plot
+        </AppText>
         <AppText>{data.overview}</AppText>
         <Credits id={route.params.id} />
       </View>
