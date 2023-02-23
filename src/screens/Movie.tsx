@@ -1,6 +1,7 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
+import { useContext, useEffect } from "react";
 import { Image, View } from "react-native";
 import { getImage } from "~/api/images";
 import { useGetMovie } from "~/api/movies";
@@ -9,11 +10,17 @@ import AppText from "~/components/AppText";
 import Credits from "~/components/Credits";
 import Rating from "~/components/Rating";
 import Tags from "~/components/Tags";
+import HistoryContext from "~/context/HistoryContext";
 import { ParamList } from "~/domain/navigation";
 type Props = NativeStackScreenProps<ParamList, "Movie">;
 
 const Movie = ({ route }: Props) => {
   const { isLoading, data } = useGetMovie(route.params.id);
+  const historyContext = useContext(HistoryContext);
+  useEffect(() => {
+    if (!data) return;
+    historyContext?.push(data);
+  }, [data]);
 
   if (isLoading || data == undefined) {
     return <AppText>Loading</AppText>;

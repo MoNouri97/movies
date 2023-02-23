@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useContext } from "react";
 import {
   FlatList,
   Image,
@@ -13,10 +13,13 @@ import AppText from "~/components/AppText";
 import BottomBar from "~/components/BottomBar";
 import MovieCard from "~/components/MovieCard";
 import SectionTitle from "~/components/SectionTitle";
+import HistoryContext from "~/context/HistoryContext";
 import { ParamList } from "~/domain/navigation";
+import { detailedMovieToSimple } from "~/helpers/format";
 
 const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
   const { isLoading, data } = useGetMovies();
+  const historyContext = useContext(HistoryContext);
   return (
     <AppScrollingScreen>
       <Image
@@ -55,6 +58,21 @@ const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
       <View className="ml-6 flex justify-start">
         <SectionTitle title="Recently Viewed" />
       </View>
+
+      <FlatList
+        showsHorizontalScrollIndicator={false}
+        data={historyContext?.recent}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Movie", { id: item.id })}
+          >
+            <MovieCard movie={detailedMovieToSimple(item)} />
+          </TouchableOpacity>
+        )}
+        keyExtractor={(movie) => `${movie.id}`}
+        horizontal
+        className="h-72 p-4"
+      />
       <BottomBar />
     </AppScrollingScreen>
   );
