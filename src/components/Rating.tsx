@@ -12,7 +12,7 @@ const Rating: React.FC<Props> = ({ rating = 0, alt = false, count }) => {
     return (
       <View className="my-2 flex-row items-center gap-x-2">
         <FontAwesome name="star" size={18} color="#F9C400" />
-        <AppText variant="SUBTITLE" style={{ fontSize: 18, color: "#F9C400" }}>
+        <AppText variant="SUBTITLE" className="text-xl text-gold">
           {rounded}
         </AppText>
         {count && (

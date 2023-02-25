@@ -18,9 +18,9 @@ const TextStyles = {
 // const gray = resolveConfig(tailwindConfig).theme?.colors?.gray?.[500];
 // console.log({ gray });
 
-type Props = { variant?: keyof typeof TextStyles } & TextProps;
+export type AppTextProps = { variant?: keyof typeof TextStyles } & TextProps;
 
-const AppText: React.FC<Props> = ({ variant = "LABEL", style, ...props }) => {
+const AppText = ({ variant = "LABEL", style, ...props }: AppTextProps) => {
   return (
     <Text
       className="text-white"

@@ -12,7 +12,6 @@ const Credits = ({ id }: Props) => {
   if (isLoading || !isSuccess) {
     return null;
   }
-  const actor = data.cast[0];
   return (
     <>
       <View className="mt-4 flex-row items-center justify-start">

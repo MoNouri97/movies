@@ -10,8 +10,10 @@ import AppText from "~/components/AppText";
 import Credits from "~/components/Credits";
 import Rating from "~/components/Rating";
 import Tags from "~/components/Tags";
+import TruncatedText from "~/components/TruncatedText";
 import HistoryContext from "~/context/HistoryContext";
 import { ParamList } from "~/domain/navigation";
+import { formatMoney } from "~/helpers/format";
 type Props = NativeStackScreenProps<ParamList, "Movie">;
 
 const Movie = ({ route }: Props) => {
@@ -31,33 +33,43 @@ const Movie = ({ route }: Props) => {
     >
       <Image
         source={{ uri: getImage(data!.poster_path, "500") }}
-        className="fixed top-0 h-[50vh]"
+        className="fixed top-0 h-[70vh]"
       />
-      <View className="absolute top-0 z-10 h-[50vh]">
+      <View className="absolute top-0 z-10 h-[70vh]">
         <LinearGradient
           colors={["rgba(0, 0, 0, 0)", "rgb(23,23,23)"]}
           className="h-full w-screen"
         />
-        <View className="absolute bottom-4 w-full px-8">
+        <View className="absolute bottom-0 w-full pb-4">
           <FontAwesome
             name="heart-o"
             size={26}
             color="white"
             style={{ position: "absolute", bottom: 50, right: 50 }}
           />
-          <View className="absolute bottom-4 w-[300] px-4">
+          <View className=" w-[300] px-4">
             <Rating alt rating={data?.vote_average} count={data?.vote_count} />
             <AppText variant="TITLE">{data?.title}</AppText>
-            <AppText className="text-purple-400 ">{data.tagline}</AppText>
           </View>
         </View>
       </View>
       <View className="z-10 min-h-[600] bg-neutral-900 px-4">
         <Tags genres={data.genres} />
+        <View className="flex-row items-center justify-around py-4">
+          <View className="mx-2 flex-grow rounded-xl bg-neutral-800 px-6  py-8">
+            <AppText>Budget</AppText>
+            <AppText variant="SUBTITLE">{formatMoney(data.budget)}</AppText>
+          </View>
+          <View className="mx-2 flex-grow rounded-xl bg-gold/30 px-6  py-8">
+            <AppText className="text-gold">Revenue</AppText>
+            <AppText variant="SUBTITLE">{formatMoney(data.revenue)}</AppText>
+          </View>
+        </View>
         <AppText variant="SUBTITLE" className="my-4">
           The Plot
         </AppText>
-        <AppText>{data.overview}</AppText>
+        <TruncatedText numberOfLines={2}>{data.overview} </TruncatedText>
+
         <Credits id={route.params.id} />
       </View>
     </AppScrollingScreen>
