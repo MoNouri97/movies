@@ -1,5 +1,12 @@
-import React, { createContext, ReactNode, useCallback, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { DetailedMovie } from "~/domain/movie";
+import { loadFromStorage, saveToStorage } from "~/helpers/asyncStorage";
 
 type HistoryContextState = {
   recent: DetailedMovie[];
@@ -8,17 +15,28 @@ type HistoryContextState = {
 export const HistoryContext = createContext<HistoryContextState | null>(null);
 export default HistoryContext;
 
+const RECENT_KEY = "RECENT";
 export const HistoryContextProvider = ({
   children,
 }: {
   children: ReactNode;
 }) => {
   const [recent, setRecent] = useState<DetailedMovie[]>([]);
+  useEffect(() => {
+    loadFromStorage<DetailedMovie[]>(RECENT_KEY).then((savedRecent) => {
+      setRecent(savedRecent ?? []);
+    });
+  }, [setRecent]);
 
   const push = useCallback(
     (movie: DetailedMovie) => {
       setTimeout(() => {
-        setRecent([movie, ...recent.filter((m) => m.id != movie.id)]);
+        const updatedRecent = [
+          movie,
+          ...recent.filter((m) => m.id != movie.id),
+        ];
+        setRecent(updatedRecent);
+        saveToStorage(updatedRecent, RECENT_KEY);
       }, 10);
     },
     [setRecent, recent]

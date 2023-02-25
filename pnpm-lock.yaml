@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@babel/core': ^7.12.9
   '@expo-google-fonts/dm-sans': ^0.2.2
+  '@react-native-async-storage/async-storage': ~1.17.3
   '@react-navigation/native': ^6.1.4
   '@react-navigation/native-stack': ^6.9.10
   '@react-navigation/stack': ^6.3.14
@@ -31,6 +32,7 @@ specifiers:
 
 dependencies:
   '@expo-google-fonts/dm-sans': 0.2.2
+  '@react-native-async-storage/async-storage': 1.17.11_react-native@0.70.5
   '@react-navigation/native': 6.1.4_tj3nonr5gneraukzjkxpsiy7yu
   '@react-navigation/native-stack': 6.9.10_mzpnoyhirmxo3ci6ibredhimgm
   '@react-navigation/stack': 6.3.14_b333ibcrpslvkggqcgbevtspkq
@@ -1909,6 +1911,15 @@ packages:
     dependencies:
       mkdirp: 1.0.4
       rimraf: 3.0.2
+    dev: false
+
+  /@react-native-async-storage/async-storage/1.17.11_react-native@0.70.5:
+    resolution: {integrity: sha512-bzs45n5HNcDq6mxXnSsOHysZWn1SbbebNxldBXCQs8dSvF8Aor9KCdpm+TpnnGweK3R6diqsT8lFhX77VX0NFw==}
+    peerDependencies:
+      react-native: ^0.0.0-0 || 0.60 - 0.71 || 1000.0.0
+    dependencies:
+      merge-options: 3.0.4
+      react-native: 0.70.5_7vw2fevm7cxfkwynop5qx4c5l4
     dev: false
 
   /@react-native-community/cli-clean/9.2.1:
@@ -4543,6 +4554,11 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
+  /is-plain-obj/2.1.0:
+    resolution: {integrity: sha512-YWnfyRwxL/+SsrWYfOpUtz5b3YD+nyfkHvjbcanzk8zgyO4ASD67uVMRt8k5bM4lLMDnXfriRhOpemw+NfT1eA==}
+    engines: {node: '>=8'}
+    dev: false
+
   /is-plain-object/2.0.4:
     resolution: {integrity: sha512-h5PpgXkWitc38BBMYawTYMWJHFZJVnBquFE57xFpjB8pJFiF6gZ+bU+WyI/yqXiFR5mdLsgYNaPe8uao6Uv9Og==}
     engines: {node: '>=0.10.0'}
@@ -4988,6 +5004,13 @@ packages:
 
   /memory-cache/0.2.0:
     resolution: {integrity: sha512-OcjA+jzjOYzKmKS6IQVALHLVz+rNTMPoJvCztFaZxwG14wtAW7VRZjwTQu06vKCYOxh4jVnik7ya0SXTB0W+xA==}
+    dev: false
+
+  /merge-options/3.0.4:
+    resolution: {integrity: sha512-2Sug1+knBjkaMsMgf1ctR1Ujx+Ayku4EdJN4Z+C2+JzoeF7A3OZ9KM2GY0CpQS51NR61LTurMJrRKPhSs3ZRTQ==}
+    engines: {node: '>=10'}
+    dependencies:
+      is-plain-obj: 2.1.0
     dev: false
 
   /merge-stream/2.0.0:
