@@ -1,5 +1,6 @@
 import React, { ReactNode, useRef } from "react";
 import {
+  Image,
   Platform,
   SafeAreaView,
   ScrollView,
@@ -18,10 +19,10 @@ type Props = {
   safe?: boolean;
   scrollViewProps?: ScrollViewProps;
   children?: ReactNode;
+  bg?: boolean;
 };
 
-export const statusBarPadding =
-  Platform.OS === "android" ? StatusBar.currentHeight : 0;
+export const statusBarPadding = Platform.OS === "android" ? StatusBar.currentHeight : 0;
 
 const AppScrollingScreen: React.FC<Props> = ({
   children,
@@ -31,6 +32,7 @@ const AppScrollingScreen: React.FC<Props> = ({
   safe = false,
   center = false,
   autoScroll = false,
+  bg = false,
 }) => {
   const ref = useRef<ScrollView>(null);
   return (
@@ -57,6 +59,7 @@ const AppScrollingScreen: React.FC<Props> = ({
         }
         {...scrollViewProps}
       >
+        {bg && <Image source={require("assets/Background.png")} className="absolute h-full opacity-50" />}
         {children}
       </ScrollView>
     </SafeAreaView>
@@ -70,6 +73,7 @@ export const AppScreen = ({
   safe = false,
   center = false,
   autoScroll = false,
+  bg = false,
 }: Props) => {
   return (
     <SafeAreaView
@@ -81,11 +85,8 @@ export const AppScreen = ({
       ]}
       className="flex-1 bg-neutral-900"
     >
-      <View
-        className={`grow ${
-          center ? "justify-evenly" : "justify-start"
-        } relative min-h-screen`}
-      >
+      <View className={`grow ${center ? "justify-evenly" : "justify-start"} relative min-h-screen`}>
+        {bg && <Image source={require("assets/Background.png")} className="absolute h-full opacity-50" />}
         {children}
       </View>
     </SafeAreaView>

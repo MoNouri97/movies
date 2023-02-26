@@ -1,14 +1,16 @@
 import { DarkTheme, NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
 import { AppScreen } from "~/components/AppScreen";
+import BottomBar from "~/components/BottomBar";
 import { ParamList } from "~/domain/navigation";
 import Main from "~/screens/Main";
 import Movie from "~/screens/Movie";
 import MoviesList from "~/screens/MoviesList";
+import Search from "~/screens/Search";
 
 type Props = {};
-const Stack = createNativeStackNavigator<ParamList>();
+const Stack = createStackNavigator<ParamList>();
 
 const MainStack: React.FC<Props> = ({}) => {
   return (
@@ -16,10 +18,10 @@ const MainStack: React.FC<Props> = ({}) => {
       <StatusBar style="light" />
       <NavigationContainer theme={DarkTheme}>
         <Stack.Navigator
+          detachInactiveScreens={false}
           initialRouteName="Main"
           screenOptions={{
             headerShown: false,
-            statusBarTranslucent: true,
           }}
         >
           <Stack.Screen name="Main" component={Main} />
@@ -31,7 +33,9 @@ const MainStack: React.FC<Props> = ({}) => {
             name="Movies"
             component={MoviesList}
           />
+          <Stack.Screen name="Search" component={Search} />
         </Stack.Navigator>
+        <BottomBar />
       </NavigationContainer>
     </AppScreen>
   );

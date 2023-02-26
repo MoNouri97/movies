@@ -1,16 +1,9 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useContext } from "react";
-import {
-  FlatList,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, TextInput, TouchableOpacity, View } from "react-native";
 import { useGetMovies } from "~/api/movies";
 import AppScrollingScreen, { statusBarPadding } from "~/components/AppScreen";
 import AppText from "~/components/AppText";
-import BottomBar from "~/components/BottomBar";
 import MovieCard from "~/components/MovieCard";
 import SectionTitle from "~/components/SectionTitle";
 import HistoryContext from "~/context/HistoryContext";
@@ -21,11 +14,7 @@ const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
   const { isLoading, data } = useGetMovies();
   const historyContext = useContext(HistoryContext);
   return (
-    <AppScrollingScreen>
-      <Image
-        source={require("assets/Background.png")}
-        className="absolute h-full opacity-30"
-      />
+    <AppScrollingScreen bg>
       <View style={{ marginTop: statusBarPadding }}>
         <TextInput className="m-6 h-10 rounded-xl bg-neutral-700/40 px-4 text-white" />
       </View>
@@ -73,7 +62,6 @@ const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
         horizontal
         className="h-72 p-4"
       />
-      <BottomBar />
     </AppScrollingScreen>
   );
 };

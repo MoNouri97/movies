@@ -22,6 +22,7 @@ specifiers:
   prettier-plugin-tailwindcss: ^0.2.3
   react: 18.1.0
   react-dom: 18.1.0
+  react-hook-form: ^7.43.2
   react-native: 0.70.5
   react-native-gesture-handler: ~2.8.0
   react-native-safe-area-context: 4.4.1
@@ -46,6 +47,7 @@ dependencies:
   nativewind: 2.0.11_55hxzlvkgtwricihvhqiot4r6a
   react: 18.1.0
   react-dom: 18.1.0_react@18.1.0
+  react-hook-form: 7.43.2_react@18.1.0
   react-native: 0.70.5_7vw2fevm7cxfkwynop5qx4c5l4
   react-native-gesture-handler: 2.8.0_tj3nonr5gneraukzjkxpsiy7yu
   react-native-safe-area-context: 4.4.1_tj3nonr5gneraukzjkxpsiy7yu
@@ -6262,6 +6264,15 @@ packages:
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=17.0.0'
+    dependencies:
+      react: 18.1.0
+    dev: false
+
+  /react-hook-form/7.43.2_react@18.1.0:
+    resolution: {integrity: sha512-NvD3Oe2Y9hhqo2R4I4iJigDzSLpdMnzUpNMxlnzTbdiT7NT3BW0GxWCzEtwPudZMUPbZhNcSy1EcGAygyhDORg==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
     dependencies:
       react: 18.1.0
     dev: false
