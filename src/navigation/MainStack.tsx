@@ -4,6 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { AppScreen } from "~/components/AppScreen";
 import BottomBar from "~/components/BottomBar";
 import { ParamList } from "~/domain/navigation";
+import Discover from "~/screens/Discover";
 import Main from "~/screens/Main";
 import Movie from "~/screens/Movie";
 import MoviesList from "~/screens/MoviesList";
@@ -34,6 +35,7 @@ const MainStack: React.FC<Props> = ({}) => {
             component={MoviesList}
           />
           <Stack.Screen name="Search" component={Search} />
+          <Stack.Screen name="Discover" component={Discover} />
         </Stack.Navigator>
         <BottomBar />
       </NavigationContainer>
