@@ -1,8 +1,8 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useContext } from "react";
-import { FlatList, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, TouchableOpacity, View } from "react-native";
 import { useGetMovies } from "~/api/movies";
-import AppScrollingScreen, { statusBarPadding } from "~/components/AppScreen";
+import AppScrollingScreen from "~/components/AppScreen";
 import AppText from "~/components/AppText";
 import MovieCard from "~/components/MovieCard";
 import SectionTitle from "~/components/SectionTitle";
@@ -14,15 +14,10 @@ const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
   const { isLoading, data } = useGetMovies();
   const historyContext = useContext(HistoryContext);
   return (
-    <AppScrollingScreen bg>
-      <View style={{ marginTop: statusBarPadding }}>
-        <TextInput className="m-6 h-10 rounded-xl bg-neutral-700/40 px-4 text-white" />
-      </View>
+    <AppScrollingScreen safe bg>
+      <AppText className="m-6 px-4 text-2xl">What would you like to watch ?</AppText>
       <View className="ml-6 flex justify-start">
-        <SectionTitle
-          title="Trending"
-          onSeeAllPress={() => navigation.navigate("Movies")}
-        />
+        <SectionTitle title="Trending" onSeeAllPress={() => navigation.navigate("Movies")} />
       </View>
       {isLoading ? (
         <AppText>Loading</AppText>
@@ -32,9 +27,7 @@ const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
             showsHorizontalScrollIndicator={false}
             data={data}
             renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() => navigation.navigate("Movie", { id: item.id })}
-              >
+              <TouchableOpacity onPress={() => navigation.navigate("Movie", { id: item.id })}>
                 <MovieCard movie={item} />
               </TouchableOpacity>
             )}
@@ -52,9 +45,7 @@ const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
         showsHorizontalScrollIndicator={false}
         data={historyContext?.recent}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Movie", { id: item.id })}
-          >
+          <TouchableOpacity onPress={() => navigation.navigate("Movie", { id: item.id })}>
             <MovieCard movie={detailedMovieToSimple(item)} />
           </TouchableOpacity>
         )}

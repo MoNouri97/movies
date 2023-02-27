@@ -1,5 +1,6 @@
 import React, { ReactNode, useRef } from "react";
 import {
+  Dimensions,
   Image,
   Platform,
   SafeAreaView,
@@ -23,7 +24,7 @@ type Props = {
 };
 
 export const statusBarPadding = Platform.OS === "android" ? StatusBar.currentHeight : 0;
-
+const SCREEN = Dimensions.get("screen");
 const AppScrollingScreen: React.FC<Props> = ({
   children,
   style,
@@ -36,33 +37,41 @@ const AppScrollingScreen: React.FC<Props> = ({
 }) => {
   const ref = useRef<ScrollView>(null);
   return (
-    <SafeAreaView
-      style={[
-        style,
-        safe && {
-          paddingTop: statusBarPadding,
-        },
-      ]}
-      className="flex-1 shrink-0 bg-neutral-900"
-    >
-      <ScrollView
-        className="flex-1"
-        contentContainerStyle={{ flexGrow: 1 }}
-        bounces={false}
-        ref={ref}
-        onContentSizeChange={
-          !autoScroll
-            ? undefined
-            : () => {
-                ref.current?.scrollToEnd();
-              }
-        }
-        {...scrollViewProps}
+    <View style={{ height: SCREEN.height, position: "relative", width: SCREEN.width }} className="bg-neutral-900">
+      {bg && (
+        <Image
+          source={require("assets/Background.png")}
+          className="absolute bottom-0 flex-1 opacity-80"
+          style={{ height: SCREEN.height, width: SCREEN.width }}
+        />
+      )}
+      <SafeAreaView
+        style={[
+          style,
+          safe && {
+            paddingTop: statusBarPadding,
+          },
+        ]}
+        className="flex-1 shrink-0"
       >
-        {bg && <Image source={require("assets/Background.png")} className="absolute h-full opacity-50" />}
-        {children}
-      </ScrollView>
-    </SafeAreaView>
+        <ScrollView
+          className="flex-1"
+          contentContainerStyle={{ flexGrow: 1 }}
+          bounces={false}
+          ref={ref}
+          onContentSizeChange={
+            !autoScroll
+              ? undefined
+              : () => {
+                  ref.current?.scrollToEnd();
+                }
+          }
+          {...scrollViewProps}
+        >
+          {children}
+        </ScrollView>
+      </SafeAreaView>
+    </View>
   );
 };
 
