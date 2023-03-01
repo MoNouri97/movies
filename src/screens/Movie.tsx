@@ -21,27 +21,20 @@ const Movie = ({ route }: Props) => {
   const historyContext = useContext(HistoryContext);
   useEffect(() => {
     if (!data) return;
-    historyContext?.push(data);
+    historyContext?.addToHistory(data);
   }, [data]);
 
   if (isLoading || data == undefined) {
     return <AppText>Loading</AppText>;
   }
   return (
-    <AppScrollingScreen
-      scrollViewProps={{ className: "relative", stickyHeaderIndices: [0] }}
-    >
-      <Image
-        source={{ uri: getImage(data!.poster_path, "500") }}
-        className="fixed top-0 h-[70vh]"
-      />
+    <AppScrollingScreen scrollViewProps={{ className: "relative", stickyHeaderIndices: [0] }}>
+      <Image source={{ uri: getImage(data!.poster_path, "500") }} className="fixed top-0 h-[70vh]" />
       <View className="absolute top-0 z-10 h-[70vh]">
-        <LinearGradient
-          colors={["rgba(0, 0, 0, 0)", "rgb(23,23,23)"]}
-          className="h-full w-screen"
-        />
+        <LinearGradient colors={["rgba(0, 0, 0, 0)", "rgb(23,23,23)"]} className="h-full w-screen" />
         <View className="absolute bottom-0 w-full pb-4">
           <FontAwesome
+            onPress={() => historyContext?.toggleFavorite(data)}
             name="heart-o"
             size={26}
             color="white"

@@ -40,7 +40,6 @@ const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
       <View className="ml-6 flex justify-start">
         <SectionTitle title="Recently Viewed" />
       </View>
-
       <FlatList
         showsHorizontalScrollIndicator={false}
         data={historyContext?.recent}
@@ -52,6 +51,21 @@ const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
         keyExtractor={(movie) => `${movie.id}`}
         horizontal
         className="h-72 p-4"
+      />
+      <View className="ml-6 flex justify-start">
+        <SectionTitle title="Favorites" />
+      </View>
+      <FlatList
+        showsHorizontalScrollIndicator={false}
+        data={historyContext?.favorites}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => navigation.navigate("Movie", { id: item.id })}>
+            <MovieCard movie={detailedMovieToSimple(item)} />
+          </TouchableOpacity>
+        )}
+        keyExtractor={(movie) => `${movie.id}`}
+        horizontal
+        className="mb-20 h-72 p-4"
       />
     </AppScrollingScreen>
   );
