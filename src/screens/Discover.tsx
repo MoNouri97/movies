@@ -1,16 +1,32 @@
-import { Modal, View } from "react-native";
+import { useState } from "react";
+import { View } from "react-native";
+import AppButton from "~/components/AppButton";
 import AppScreen from "~/components/AppScreen";
 import AppText from "~/components/AppText";
+import BottomSheet from "~/components/BottomSheet";
 
 type Props = {};
 
 const Discover = ({}: Props) => {
+  const [showFilters, setShowFilters] = useState(true);
   return (
     <AppScreen bg safe>
-      <Modal statusBarTranslucent animationType="slide" transparent className="h-[200] items-center bg-neutral-900">
-        <AppText className="text-violet-500">Hello</AppText>
-      </Modal>
-      <View className="m-6 flex-row items-center rounded-xl bg-neutral-700/40"></View>
+      <View className="m-6 items-center justify-center">
+        <AppText variant="TITLE">Search for movies</AppText>
+        <AppButton onPress={() => setShowFilters(!showFilters)}>Press me</AppButton>
+      </View>
+      <BottomSheet
+        modalProps={{
+          visible: showFilters,
+          onRequestClose(event) {
+            setShowFilters(false);
+          },
+        }}
+      >
+        <View className="h-full items-center justify-start p-2">
+          <AppText variant="TITLE">Filters</AppText>
+        </View>
+      </BottomSheet>
     </AppScreen>
   );
 };

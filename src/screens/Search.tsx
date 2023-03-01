@@ -34,10 +34,11 @@ const Search = ({ navigation }: NativeStackScreenProps<ParamList, "Search">) => 
         />
         <Feather style={{ paddingHorizontal: 16 }} name="search" size={24} color="#ffffff99" />
       </View>
-      {isLoading ? (
-        <AppText>Loading</AppText>
-      ) : (
-        <View className="items-center justify-center">
+      <View className="items-center justify-center">
+        {!query && <AppText variant="TITLE">Search for movies</AppText>}
+        {isLoading ? (
+          <AppText>Loading</AppText>
+        ) : (
           <FlatList
             data={data}
             renderItem={({ item }) => (
@@ -49,8 +50,8 @@ const Search = ({ navigation }: NativeStackScreenProps<ParamList, "Search">) => 
             numColumns={2}
             className="p-4"
           />
-        </View>
-      )}
+        )}
+      </View>
     </AppScreen>
   );
 };

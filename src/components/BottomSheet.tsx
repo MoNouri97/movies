@@ -11,10 +11,12 @@ type Props = {
 const BottomSheet = ({ style: containerStyle, modalProps, children, center = false, ...props }: Props) => {
   return (
     <Modal statusBarTranslucent animationType="slide" transparent {...modalProps}>
-      <View style={containerStyle} {...props}>
-        <Pressable onPress={modalProps?.onRequestClose}>
-          <View>{children}</View>
-        </Pressable>
+      <View className="flex-1 flex-col-reverse bg-white/10">
+        <View className="h-[500] rounded-t-3xl bg-neutral-900" style={containerStyle} {...props}>
+          <Pressable onPress={modalProps?.onRequestClose}>
+            <View>{children}</View>
+          </Pressable>
+        </View>
       </View>
     </Modal>
   );
