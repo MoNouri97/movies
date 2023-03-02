@@ -12,7 +12,7 @@ const buttons: {
   { name: "home", route: "Main" },
   { name: "search", route: "Search" },
   { name: "compass", route: "Discover" },
-  { name: "heart", route: undefined },
+  { name: "heart", route: "Favorites" },
 ];
 
 const BottomBar = () => {

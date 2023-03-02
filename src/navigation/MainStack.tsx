@@ -7,7 +7,7 @@ import { ParamList } from "~/domain/navigation";
 import Discover from "~/screens/Discover";
 import Main from "~/screens/Main";
 import Movie from "~/screens/Movie";
-import MoviesList from "~/screens/MoviesList";
+import { FavoriteMovies, TrendingMovies } from "~/screens/MoviesList";
 import Search from "~/screens/Search";
 
 type Props = {};
@@ -30,9 +30,18 @@ const MainStack: React.FC<Props> = ({}) => {
           <Stack.Screen
             options={{
               headerShown: true,
+              title: "Trending Movies",
             }}
             name="Movies"
-            component={MoviesList}
+            component={TrendingMovies}
+          />
+          <Stack.Screen
+            options={{
+              headerShown: true,
+              title: "Favorite Movies",
+            }}
+            name="Favorites"
+            component={FavoriteMovies}
           />
           <Stack.Screen name="Search" component={Search} />
           <Stack.Screen name="Discover" component={Discover} />

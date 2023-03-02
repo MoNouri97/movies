@@ -4,4 +4,5 @@ export type ParamList = {
   Movies: undefined;
   Search: undefined;
   Discover: undefined;
+  Favorites: undefined;
 };
