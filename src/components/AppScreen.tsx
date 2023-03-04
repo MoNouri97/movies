@@ -25,7 +25,7 @@ type Props = {
 
 export const statusBarPadding = Platform.OS === "android" ? StatusBar.currentHeight : 0;
 const SCREEN = Dimensions.get("screen");
-const AppScrollingScreen: React.FC<Props> = ({
+export const AppScrollingScreen: React.FC<Props> = ({
   children,
   style,
   title,
@@ -36,6 +36,7 @@ const AppScrollingScreen: React.FC<Props> = ({
   bg = false,
 }) => {
   const ref = useRef<ScrollView>(null);
+  const ContainerView = safe ? SafeAreaView : View;
   return (
     <View style={{ height: SCREEN.height, position: "relative", width: SCREEN.width }} className="bg-neutral-900">
       {bg && (
@@ -45,7 +46,7 @@ const AppScrollingScreen: React.FC<Props> = ({
           style={{ height: SCREEN.height, width: SCREEN.width }}
         />
       )}
-      <SafeAreaView
+      <ContainerView
         style={[
           style,
           safe && {
@@ -70,7 +71,7 @@ const AppScrollingScreen: React.FC<Props> = ({
         >
           {children}
         </ScrollView>
-      </SafeAreaView>
+      </ContainerView>
     </View>
   );
 };
@@ -84,21 +85,25 @@ export const AppScreen = ({
   autoScroll = false,
   bg = false,
 }: Props) => {
+  const ContainerView = safe ? SafeAreaView : View;
+
   return (
-    <SafeAreaView
+    <ContainerView
       style={[
         style,
-        safe && {
-          paddingTop: statusBarPadding,
-        },
+        safe
+          ? {
+              paddingTop: statusBarPadding,
+            }
+          : undefined,
       ]}
       className="flex-1 bg-neutral-900"
     >
-      <View className={`grow ${center ? "justify-evenly" : "justify-start"} relative min-h-screen`}>
-        {bg && <Image source={require("assets/Background.png")} className="absolute h-full opacity-50" />}
+      <View className={`grow ${center ? "justify-evenly" : "justify-start"} relative h-screen`}>
+        {bg && <Image source={require("assets/Background.png")} className="absolute top-0 h-full opacity-50" />}
         {children}
       </View>
-    </SafeAreaView>
+    </ContainerView>
   );
 };
 

@@ -23,10 +23,10 @@ const Movie = ({ route }: Props) => {
     if (!data) return;
     historyContext?.addToHistory(data);
   }, [data]);
-
   if (isLoading || data == undefined) {
     return <AppText>Loading</AppText>;
   }
+
   return (
     <AppScrollingScreen scrollViewProps={{ className: "relative", stickyHeaderIndices: [0] }}>
       <Image source={{ uri: getImage(data!.poster_path, "500") }} className="fixed top-0 h-[70vh]" />
@@ -40,7 +40,7 @@ const Movie = ({ route }: Props) => {
             color="white"
             style={{ position: "absolute", bottom: 50, right: 50 }}
           />
-          <View className=" w-[300] px-4">
+          <View className="w-[300] px-4">
             <Rating alt rating={data?.vote_average} count={data?.vote_count} />
             <AppText variant="TITLE">{data?.title}</AppText>
           </View>
