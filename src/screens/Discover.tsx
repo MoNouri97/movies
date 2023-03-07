@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useWindowDimensions, View } from "react-native";
+import { ScrollView, useWindowDimensions, View } from "react-native";
 import AppButton from "~/components/AppButton";
 import AppScrollingScreen from "~/components/AppScreen";
 import AppText from "~/components/AppText";
@@ -26,23 +26,15 @@ const Discover = ({}: Props) => {
           Press me
         </AppButton>
       </View>
-      <BottomSheet activeHeight={height} backDropColor="#00000055" backgroundColor="#222" ref={ref}>
-        {/* <View className="h-full items-center justify-start p-2"> */}
-        <AppText variant="TITLE">Filters</AppText>
-        {/* </View> */}
+      <BottomSheet activeHeight={700} backDropColor="#00000055" backgroundColor="#222" ref={ref}>
+        <ScrollView className="h-[200] p-2">
+          <View className="items-center">
+            <AppText variant="TITLE" className="py-8">
+              Filters
+            </AppText>
+          </View>
+        </ScrollView>
       </BottomSheet>
-      {/* <BottomSheet
-        modalProps={{
-          visible: showFilters,
-          onRequestClose(event) {
-            setShowFilters(false);
-          },
-        }}
-      >
-        <View className="h-full items-center justify-start p-2">
-          <AppText variant="TITLE">Filters</AppText>
-        </View>
-      </BottomSheet> */}
     </AppScrollingScreen>
   );
 };

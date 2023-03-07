@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { forwardRef, ReactNode, useCallback, useImperativeHandle } from "react";
-import { ColorValue, Dimensions, StyleSheet, TouchableWithoutFeedback, useWindowDimensions, View } from "react-native";
+import { ColorValue, StyleSheet, TouchableWithoutFeedback, useWindowDimensions, View } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated, {
   interpolate,
@@ -19,6 +19,7 @@ export type RefType = {
 
 const BottomSheet = forwardRef<RefType, Props>(({ activeHeight, children, backgroundColor, backDropColor }, ref) => {
   const { height } = useWindowDimensions();
+  const topWhenHidden = height + 20;
   const newActiveHeight = height - activeHeight;
   const topAnimation = useSharedValue(height);
 
@@ -32,7 +33,7 @@ const BottomSheet = forwardRef<RefType, Props>(({ activeHeight, children, backgr
 
   const close = useCallback(() => {
     "worklet";
-    topAnimation.value = withSpring(height, {
+    topAnimation.value = withSpring(topWhenHidden, {
       damping: 100,
       stiffness: 400,
     });
@@ -54,7 +55,7 @@ const BottomSheet = forwardRef<RefType, Props>(({ activeHeight, children, backgr
     };
   });
   const backDropAnimation = useAnimatedStyle(() => {
-    const opacity = interpolate(topAnimation.value, [height, newActiveHeight], [0, 0.5]);
+    const opacity = interpolate(topAnimation.value, [topWhenHidden, newActiveHeight], [0, 0.5]);
     const display = opacity === 0 ? "none" : "flex";
     return {
       opacity,
@@ -67,21 +68,14 @@ const BottomSheet = forwardRef<RefType, Props>(({ activeHeight, children, backgr
       ctx.startY = topAnimation.value;
     },
     onActive: (event, ctx) => {
-      if (event.translationY < 0) {
-        topAnimation.value = withSpring(newActiveHeight, {
-          damping: 100,
-          stiffness: 400,
-        });
-      } else {
-        topAnimation.value = withSpring(ctx.startY + event.translationY, {
-          damping: 100,
-          stiffness: 400,
-        });
-      }
+      topAnimation.value = withSpring(ctx.startY + event.translationY, {
+        damping: 100,
+        stiffness: 400,
+      });
     },
     onEnd: (_) => {
       if (topAnimation.value > newActiveHeight + 50) {
-        topAnimation.value = withSpring(height, {
+        topAnimation.value = withSpring(topWhenHidden, {
           damping: 100,
           stiffness: 400,
         });
@@ -116,7 +110,6 @@ const BottomSheet = forwardRef<RefType, Props>(({ activeHeight, children, backgr
 });
 
 export default BottomSheet;
-const { height } = Dimensions.get("screen");
 
 const styles = StyleSheet.create({
   container: {
