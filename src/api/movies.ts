@@ -1,11 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import api from "~/api/config";
 import { DetailedMovie, MoviesResponse, SimpleMovie } from "~/domain/movie";
 
-export const useGetMovies = (page = 1, genres?: number[], rating?: [number, number], sort?: string) => {
-  return useQuery({
+export const useGetMovies = (genres?: number[], rating?: [number, number], sort?: string) => {
+  return useInfiniteQuery({
     queryKey: ["movies"],
-    queryFn: async () => {
+    queryFn: async ({ pageParam = 0 }) => {
       const currentDate = new Date().toISOString().slice(0, 10);
       let info = "";
 
@@ -19,10 +19,14 @@ export const useGetMovies = (page = 1, genres?: number[], rating?: [number, numb
       // const res = await fetch(`/api/movies?page=${page}${info}`);
       // TODO paginate
       const response = await api.get<MoviesResponse>(
-        `discover/movie?page=${page}${info}&vote_count.gte=50&include_adult=false&include_video=false&primary_release_date.gte=1980-01-01&primary_release_date.lte=${currentDate}`
+        `discover/movie?page=${pageParam}${info}&vote_count.gte=50&include_adult=false&include_video=false&primary_release_date.gte=1980-01-01&primary_release_date.lte=${currentDate}`
       );
 
-      return response.data.results.sort(sortMovies);
+      response.data.results = response.data.results.sort(sortMovies);
+      return response.data;
+    },
+    getNextPageParam: (lastPage) => {
+      return lastPage.page + 1;
     },
   });
 };
