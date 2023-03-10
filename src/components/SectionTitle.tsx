@@ -1,5 +1,5 @@
 import { GestureResponderEvent, TouchableOpacity, View } from "react-native";
-import AppText from "~/components/AppText";
+import Typography from "~/components/Typography";
 
 type Props = {
   title: string;
@@ -10,10 +10,10 @@ type Props = {
 const SectionTitle = ({ title, onSeeAllPress }: Props) => {
   return (
     <View className="mr-6 flex-row items-center justify-between ">
-      <AppText variant="TITLE">{title}</AppText>
+      <Typography variant="TITLE">{title}</Typography>
       {onSeeAllPress && (
         <TouchableOpacity onPress={onSeeAllPress}>
-          <AppText variant="LABEL">See All</AppText>
+          <Typography variant="LABEL">See All</Typography>
         </TouchableOpacity>
       )}
     </View>

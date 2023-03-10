@@ -1,6 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { View } from "react-native";
-import AppText from "~/components/AppText";
+import Typography from "~/components/Typography";
 import { formatNumber } from "~/helpers/format";
 
 type Props = { rating?: number; count?: number; alt?: boolean };
@@ -12,20 +12,20 @@ const Rating: React.FC<Props> = ({ rating = 0, alt = false, count }) => {
     return (
       <View className="my-2 flex-row items-center gap-x-2">
         <FontAwesome name="star" size={18} color="#F9C400" />
-        <AppText variant="SUBTITLE" className="text-xl text-gold">
+        <Typography variant="SUBTITLE" className="text-xl text-gold">
           {rounded}
-        </AppText>
+        </Typography>
         {count && (
-          <AppText variant="SUBTITLE" style={{ fontSize: 12, color: "#fff" }}>
+          <Typography variant="SUBTITLE" style={{ fontSize: 12, color: "#fff" }}>
             ({formatNumber(count)} votes)
-          </AppText>
+          </Typography>
         )}
       </View>
     );
   }
   return (
     <View className="my-2 flex-row gap-x-2">
-      <AppText style={{ fontSize: 14 }}>{rounded}</AppText>
+      <Typography style={{ fontSize: 14 }}>{rounded}</Typography>
       {Array(stars)
         .fill("")
         .map((_, i) => (

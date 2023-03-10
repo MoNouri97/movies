@@ -20,13 +20,7 @@ const TextStyles = {
 
 export type AppTextProps = { variant?: keyof typeof TextStyles } & TextProps;
 
-const AppText = ({ variant = "LABEL", style, ...props }: AppTextProps) => {
-  return (
-    <Text
-      className="text-white"
-      style={[TextStyles[variant], style]}
-      {...props}
-    />
-  );
+const Typography = ({ variant = "LABEL", style, ...props }: AppTextProps) => {
+  return <Text className="text-white" style={[TextStyles[variant], style]} {...props} />;
 };
-export default AppText;
+export default Typography;

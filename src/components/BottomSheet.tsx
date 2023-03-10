@@ -21,7 +21,7 @@ const BottomSheet = forwardRef<RefType, Props>(({ activeHeight, children, backgr
   const { height } = useWindowDimensions();
   const topWhenHidden = height + 20;
   const newActiveHeight = height - activeHeight;
-  const topAnimation = useSharedValue(height);
+  const topAnimation = useSharedValue(topWhenHidden);
 
   const expand = useCallback(() => {
     "worklet";

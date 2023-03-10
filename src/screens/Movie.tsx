@@ -6,11 +6,11 @@ import { Image, View } from "react-native";
 import { getImage } from "~/api/images";
 import { useGetMovie } from "~/api/movies";
 import AppScrollingScreen from "~/components/AppScreen";
-import AppText from "~/components/AppText";
 import Credits from "~/components/Credits";
 import Rating from "~/components/Rating";
 import Tags from "~/components/Tags";
 import TruncatedText from "~/components/TruncatedText";
+import Typography from "~/components/Typography";
 import HistoryContext from "~/context/HistoryContext";
 import { ParamList } from "~/domain/navigation";
 import { formatMoney } from "~/helpers/format";
@@ -24,7 +24,7 @@ const Movie = ({ route }: Props) => {
     historyContext?.addToHistory(data);
   }, [data]);
   if (isLoading || data == undefined) {
-    return <AppText>Loading</AppText>;
+    return <Typography>Loading</Typography>;
   }
 
   return (
@@ -42,7 +42,7 @@ const Movie = ({ route }: Props) => {
           />
           <View className="w-[300] px-4">
             <Rating alt rating={data?.vote_average} count={data?.vote_count} />
-            <AppText variant="TITLE">{data?.title}</AppText>
+            <Typography variant="TITLE">{data?.title}</Typography>
           </View>
         </View>
       </View>
@@ -50,17 +50,17 @@ const Movie = ({ route }: Props) => {
         <Tags genres={data.genres} />
         <View className="flex-row items-center justify-around py-4">
           <View className="mx-2 flex-grow rounded-xl bg-neutral-800 px-6  py-8">
-            <AppText>Budget</AppText>
-            <AppText variant="SUBTITLE">{formatMoney(data.budget)}</AppText>
+            <Typography>Budget</Typography>
+            <Typography variant="SUBTITLE">{formatMoney(data.budget)}</Typography>
           </View>
           <View className="mx-2 flex-grow rounded-xl bg-gold/30 px-6  py-8">
-            <AppText className="text-gold">Revenue</AppText>
-            <AppText variant="SUBTITLE">{formatMoney(data.revenue)}</AppText>
+            <Typography className="text-gold">Revenue</Typography>
+            <Typography variant="SUBTITLE">{formatMoney(data.revenue)}</Typography>
           </View>
         </View>
-        <AppText variant="SUBTITLE" className="my-4">
+        <Typography variant="SUBTITLE" className="my-4">
           The Plot
-        </AppText>
+        </Typography>
         <TruncatedText numberOfLines={2}>{data.overview} </TruncatedText>
 
         <Credits id={route.params.id} />

@@ -1,8 +1,8 @@
 import { View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { useGetCredits } from "~/api/people";
-import AppText from "~/components/AppText";
 import CastMember from "~/components/CastMember";
+import Typography from "~/components/Typography";
 
 type Props = { id: number };
 
@@ -15,16 +15,16 @@ const Credits = ({ id }: Props) => {
   return (
     <>
       <View className="mt-4 flex-row items-center justify-start">
-        <AppText className="mr-4 text-purple-400 ">Director</AppText>
-        <AppText>{data.director}</AppText>
+        <Typography className="mr-4 text-purple-400 ">Director</Typography>
+        <Typography>{data.director}</Typography>
       </View>
       <View className="mt-4 flex-row items-center justify-start">
-        <AppText className="mr-4 text-purple-400 ">Writer</AppText>
-        <AppText>{data.writer}</AppText>
+        <Typography className="mr-4 text-purple-400 ">Writer</Typography>
+        <Typography>{data.writer}</Typography>
       </View>
-      <AppText variant="SUBTITLE" className="mt-4">
+      <Typography variant="SUBTITLE" className="mt-4">
         The Cast
-      </AppText>
+      </Typography>
       <FlatList
         showsHorizontalScrollIndicator={false}
         data={data.cast}

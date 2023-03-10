@@ -3,8 +3,8 @@ import React, { useContext, useMemo } from "react";
 import { View } from "react-native";
 import { useGetMovies } from "~/api/movies";
 import AppScrollingScreen from "~/components/AppScreen";
-import AppText from "~/components/AppText";
 import HMoviesSection from "~/components/HMoviesSection";
+import Typography from "~/components/Typography";
 import HistoryContext from "~/context/HistoryContext";
 import { ParamList } from "~/domain/navigation";
 import { detailedMovieToSimple } from "~/helpers/format";
@@ -16,7 +16,7 @@ const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
   const favorites = useMemo(() => historyContext?.favorites.map(detailedMovieToSimple), [historyContext?.favorites]);
   return (
     <AppScrollingScreen safe bg>
-      <AppText className="m-6 px-4 text-2xl">Looking for something to watch ?</AppText>
+      <Typography className="m-6 px-4 text-2xl">Looking for something to watch ?</Typography>
       <HMoviesSection
         isLoading={isLoading}
         onMoviePress={(item) => navigation.navigate("Movie", { id: item.id })}

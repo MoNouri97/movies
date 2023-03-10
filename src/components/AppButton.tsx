@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { GestureResponderEvent, Platform, Pressable, PressableProps, View } from "react-native";
-import AppText from "~/components/AppText";
+import Typography from "~/components/Typography";
 
 export const Press = ({ children, ...props }: PressableProps) => {
   return (
@@ -24,9 +24,9 @@ const AppButton = ({ children, onPress }: Props) => {
     <View className="overflow-hidden rounded-3xl border-2 border-neutral-400">
       <Press onPress={onPress}>
         <View className="px-6 py-2">
-          <AppText variant="SUBTITLE" className="text-neutral-400">
+          <Typography variant="SUBTITLE" className="text-neutral-400">
             {children}
-          </AppText>
+          </Typography>
         </View>
       </Press>
     </View>

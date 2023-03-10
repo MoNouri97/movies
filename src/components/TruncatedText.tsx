@@ -1,17 +1,14 @@
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";
-import AppText, { AppTextProps } from "~/components/AppText";
+import Typography, { AppTextProps } from "~/components/Typography";
 
 const TruncatedText = ({ numberOfLines, ...props }: AppTextProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <TouchableOpacity onPress={() => setIsExpanded(!isExpanded)}>
-      <AppText
-        {...props}
-        numberOfLines={isExpanded ? undefined : numberOfLines}
-      />
-      {!isExpanded && <AppText className="text-purple-400">Read More</AppText>}
+      <Typography {...props} numberOfLines={isExpanded ? undefined : numberOfLines} />
+      {!isExpanded && <Typography className="text-purple-400">Read More</Typography>}
     </TouchableOpacity>
   );
 };

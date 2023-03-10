@@ -1,7 +1,7 @@
 import { FlatList, TouchableOpacity, View } from "react-native";
-import AppText from "~/components/AppText";
 import MovieCard from "~/components/MovieCard";
 import SectionTitle from "~/components/SectionTitle";
+import Typography from "~/components/Typography";
 import { SimpleMovie } from "~/domain/movie";
 
 type Props = {
@@ -19,7 +19,7 @@ const HMoviesSection = ({ title, data = [], isLoading = false, onMoviePress, onS
         <SectionTitle title={title} onSeeAllPress={onSeeAllPress} />
       </View>
       {isLoading ? (
-        <AppText>Loading</AppText>
+        <Typography>Loading</Typography>
       ) : (
         <View>
           <FlatList

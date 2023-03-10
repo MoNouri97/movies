@@ -5,8 +5,8 @@ import { Controller, useForm } from "react-hook-form";
 import { FlatList, TextInput, TouchableOpacity, View } from "react-native";
 import { useSearchMovies } from "~/api/movies";
 import { AppScreen } from "~/components/AppScreen";
-import AppText from "~/components/AppText";
 import MovieCard from "~/components/MovieCard";
+import Typography from "~/components/Typography";
 import { ParamList } from "~/domain/navigation";
 
 type Inputs = { query: string };
@@ -35,9 +35,9 @@ const Search = ({ navigation }: NativeStackScreenProps<ParamList, "Search">) => 
         <Feather style={{ paddingHorizontal: 16 }} name="search" size={24} color="#ffffff99" />
       </View>
       <View className="items-center justify-center">
-        {!query && <AppText variant="TITLE">Search for movies</AppText>}
+        {!query && <Typography variant="TITLE">Search for movies</Typography>}
         {isLoading ? (
-          <AppText>Loading</AppText>
+          <Typography>Loading</Typography>
         ) : (
           <FlatList
             data={data}
