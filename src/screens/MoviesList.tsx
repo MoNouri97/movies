@@ -57,7 +57,6 @@ export const TrendingMovies = (props: Props) => {
   return (
     <MoviesList {...props} {...{ isLoading, data: trendingMovies }}>
       <AppButton disabled={isFetchingNextPage} onPress={() => fetchNextPage()}>
-        {" "}
         {isFetchingNextPage ? "Loading" : "Next"}
       </AppButton>
     </MoviesList>
