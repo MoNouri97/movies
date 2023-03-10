@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { ScrollView, View } from "react-native";
+import { useGetMovieGenres } from "~/api/genres";
 import AppButton from "~/components/AppButton";
 import AppScrollingScreen from "~/components/AppScreen";
 import BottomSheet, { RefType } from "~/components/BottomSheet";
@@ -11,6 +12,9 @@ type Props = {};
 const Discover = ({}: Props) => {
   const ref = useRef<RefType>(null);
   const [showFilters, setShowFilters] = useState(true);
+
+  const { data: genres } = useGetMovieGenres();
+
   return (
     <AppScrollingScreen bg safe>
       <View className="m-6 items-center justify-center">
@@ -30,12 +34,7 @@ const Discover = ({}: Props) => {
             <Typography variant="TITLE" className="pb-4">
               Filters
             </Typography>
-            <Picker
-              data={[
-                { label: "hello", value: "hello" },
-                { label: "hello", value: "hello" },
-              ]}
-            />
+            <Picker data={genres?.map((i) => ({ label: i.name, value: i.id.toString() }))} />
           </View>
         </ScrollView>
       </BottomSheet>

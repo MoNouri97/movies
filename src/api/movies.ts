@@ -5,21 +5,30 @@ import { DetailedMovie, MoviesResponse, SimpleMovie } from "~/domain/movie";
 export const useGetMovies = (genres?: number[], rating?: [number, number], sort?: string) => {
   return useInfiniteQuery({
     queryKey: ["movies"],
-    queryFn: async ({ pageParam = 0 }) => {
+    queryFn: async ({ pageParam = 1 }) => {
       const currentDate = new Date().toISOString().slice(0, 10);
-      let info = "";
+      // let info = "";
+      const param = new URLSearchParams();
+      param.append("page", pageParam);
+      param.append("primary_release_date.lte", currentDate);
+      param.append("vote_count", "50");
 
-      if (genres) info += "&with_genres=" + genres.join("|");
+      // if (genres) info += "&with_genres=" + genres.join("|");
+      if (genres) param.append("with_genres", genres.join("|"));
       if (rating) {
         const [minR, maxR] = rating;
-        info += "&vote_average.gte=" + minR;
-        info += "&vote_average.lte=" + maxR;
+        param.append("vote_average.gte", minR.toString());
+        param.append("vote_average.lte", maxR.toString());
+        // info += "&vote_average.gte=" + minR;
+        // info += "&vote_average.lte=" + maxR;
       }
-      if (sort) info += "&sort_by=" + sort;
+      if (sort) param.append("sort_by", sort);
+      // if (sort) info += "&sort_by=" + sort;
       // const res = await fetch(`/api/movies?page=${page}${info}`);
-      // TODO paginate
+
+      param.toString();
       const response = await api.get<MoviesResponse>(
-        `discover/movie?page=${pageParam}${info}&vote_count.gte=50&include_adult=false&include_video=false&primary_release_date.gte=1980-01-01&primary_release_date.lte=${currentDate}`
+        `discover/movie?${param.toString()}&include_adult=false&include_video=false&primary_release_date.gte=1980-01-01`
       );
 
       response.data.results = response.data.results.sort(sortMovies);

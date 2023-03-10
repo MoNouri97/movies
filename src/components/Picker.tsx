@@ -9,12 +9,18 @@ type Item = {
 };
 
 type Props = {
-  data: Item[];
+  data?: Item[];
   value: Item;
   onChange: (i: Item) => void;
 };
 
-const Picker = ({ data, value, onChange }: Props) => {
+const Seperator = () => <View className="h-1 bg-neutral-800" />;
+const EmptyListItem = () => (
+  <View className="flex-1 items-center justify-center">
+    <Typography>No Options</Typography>
+  </View>
+);
+const Picker = ({ data = [], value, onChange }: Props) => {
   const [modalShown, setModalShown] = useState(false);
 
   const selected = useMemo(() => {
@@ -51,16 +57,15 @@ const Picker = ({ data, value, onChange }: Props) => {
             <FlatList
               contentContainerStyle={{
                 flex: 1,
-                alignItems: "center",
                 justifyContent: "center",
               }}
               data={data}
-              // ListEmptyComponent={EmptyListItem}
+              ListEmptyComponent={EmptyListItem}
               keyExtractor={(item) => item.value}
-              // ItemSeparatorComponent={Separator}
+              ItemSeparatorComponent={Seperator}
               renderItem={({ item }) => (
                 <Press
-                  className="bg-red-200/10 p-2"
+                  className="items-center p-4"
                   onPress={() => {
                     setModalShown(false);
                     // setTimeout(() => {

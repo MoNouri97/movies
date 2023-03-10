@@ -6,12 +6,20 @@ import AppScrollingScreen from "~/components/AppScreen";
 import HMoviesSection from "~/components/HMoviesSection";
 import Typography from "~/components/Typography";
 import HistoryContext from "~/context/HistoryContext";
+import { SimpleMovie } from "~/domain/movie";
 import { ParamList } from "~/domain/navigation";
 import { detailedMovieToSimple } from "~/helpers/format";
 
 const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
   const { isLoading, data } = useGetMovies();
   const historyContext = useContext(HistoryContext);
+  const trendingMovies = useMemo(() => {
+    let arr: SimpleMovie[] = [];
+    data?.pages.forEach((page) => {
+      arr = [...arr, ...page.results];
+    });
+    return arr;
+  }, [data]);
   const recent = useMemo(() => historyContext?.recent.map(detailedMovieToSimple), [historyContext?.recent]);
   const favorites = useMemo(() => historyContext?.favorites.map(detailedMovieToSimple), [historyContext?.favorites]);
   return (
@@ -22,7 +30,7 @@ const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
         onMoviePress={(item) => navigation.navigate("Movie", { id: item.id })}
         onSeeAllPress={() => navigation.navigate("Movies")}
         title="Trending"
-        data={data}
+        data={trendingMovies}
       />
       <HMoviesSection
         onMoviePress={(item) => navigation.navigate("Movie", { id: item.id })}

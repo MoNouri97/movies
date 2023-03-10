@@ -17,12 +17,12 @@ export const Press = ({ children, ...props }: PressableProps) => {
   );
 };
 
-type Props = { children: ReactNode; onPress?: ((event: GestureResponderEvent) => void) | undefined };
+type Props = PressableProps & { children: ReactNode; onPress?: ((event: GestureResponderEvent) => void) | undefined };
 
-const AppButton = ({ children, onPress }: Props) => {
+const AppButton = ({ children, onPress, ...props }: Props) => {
   return (
     <View className="overflow-hidden rounded-3xl border-2 border-neutral-400">
-      <Press onPress={onPress}>
+      <Press onPress={onPress} {...props}>
         <View className="px-6 py-2">
           <Typography variant="SUBTITLE" className="text-neutral-400">
             {children}
