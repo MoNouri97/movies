@@ -3,38 +3,48 @@ import { FlatList, Modal, View } from "react-native";
 import { Press } from "~/components/AppButton";
 import Typography from "~/components/Typography";
 
-type Item = {
+export type PickerItem = {
   value: string;
   label: string;
 };
 
 type Props = {
-  data?: Item[];
-  value: Item;
-  onChange: (i: Item) => void;
-};
+  data?: PickerItem[];
 
-const Seperator = () => <View className="h-1 bg-neutral-800" />;
+  label: string;
+} & (
+  | { multiple?: false; value: PickerItem; onChange: (i: PickerItem) => void }
+  | { multiple: true; value: PickerItem[]; onChange: (i: PickerItem[]) => void }
+);
+
+const Seperator = () => <View className="h-1 bg-neutral-900" />;
 const EmptyListItem = () => (
   <View className="flex-1 items-center justify-center">
     <Typography>No Options</Typography>
   </View>
 );
-const Picker = ({ data = [], value, onChange }: Props) => {
+const Picker = ({ data = [], value, onChange, label, multiple }: Props) => {
   const [modalShown, setModalShown] = useState(false);
 
   const selected = useMemo(() => {
     if (!value) return "";
     if (!data) return "";
-    for (const item of data) {
-      if (item.value == value.value) return item.label;
+    if (multiple) {
+      return "";
     }
-    return "";
-  }, [value]);
+    return data.find((item) => value.value == item.value)?.label || "";
+    // if (multiple) {
+    //   return data.filter((item) => {
+    //     const found = value.find((val) => val.value == item.value);
+    //     return found != undefined;
+    //   });
+    // } else {
+    //   return data.find((item) => value.value == item.value)?.label || "";
+    // }
+  }, [data, value]);
 
   const closeModal = () => {
     setModalShown(false);
-    // setTouched(true);
   };
   const openModal = async () => {
     setModalShown(true);
@@ -50,27 +60,32 @@ const Picker = ({ data = [], value, onChange }: Props) => {
   };
 
   return (
-    <View className="w-full overflow-hidden rounded-2xl bg-neutral-700">
-      <Press onPress={openModal} className="w-full p-4">
+    <View className="w-full overflow-hidden">
+      <Typography className="m-2">{label}</Typography>
+      <Press onPress={openModal} className="w-full  rounded-2xl bg-neutral-700 p-3">
         <Modal onRequestClose={closeModal} visible={modalShown} animationType="slide" transparent>
-          <View className="w-full flex-1 bg-neutral-900">
+          <View className="w-full bg-neutral-900">
             <FlatList
               contentContainerStyle={{
-                flex: 1,
                 justifyContent: "center",
               }}
               data={data}
               ListEmptyComponent={EmptyListItem}
               keyExtractor={(item) => item.value}
-              ItemSeparatorComponent={Seperator}
+              // ItemSeparatorComponent={Seperator}
               renderItem={({ item }) => (
                 <Press
-                  className="items-center p-4"
+                  className="my-1 mx-4 items-center rounded-xl bg-neutral-800 p-4"
                   onPress={() => {
                     setModalShown(false);
-                    // setTimeout(() => {
-                    // 	setValue(item.id);
-                    // }, 0);
+                    if (multiple) {
+                      if (!!value.find((val) => val.value == item.value)) {
+                        return onChange(value.filter((val) => val.value != item.value));
+                      }
+                      onChange([...value, item]);
+                    } else {
+                      onChange(item);
+                    }
                   }}
                 >
                   <Typography>{item.label}</Typography>
@@ -80,15 +95,28 @@ const Picker = ({ data = [], value, onChange }: Props) => {
           </View>
         </Modal>
 
-        {!value ? (
+        {!value || multiple ? (
           <View>
-            <Typography>Select ...</Typography>
+            <Typography variant="LABEL">Select ...</Typography>
           </View>
         ) : (
           <Typography>{selected}</Typography>
         )}
       </Press>
+      {multiple && <TagsDisplay tags={value} />}
     </View>
   );
 };
 export default Picker;
+
+const TagsDisplay = ({ tags }: { tags: PickerItem[] }) => {
+  return (
+    <View className="mt-2 flex-row flex-wrap items-center ">
+      {tags.map((tag) => (
+        <View key={tag.value} className="m-1 rounded-xl bg-neutral-700/40 py-2 px-4 text-center">
+          <Typography>{tag.label}</Typography>
+        </View>
+      ))}
+    </View>
+  );
+};

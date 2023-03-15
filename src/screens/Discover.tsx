@@ -1,17 +1,23 @@
 import { useRef, useState } from "react";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { ScrollView, View } from "react-native";
 import { useGetMovieGenres } from "~/api/genres";
 import AppButton from "~/components/AppButton";
 import AppScrollingScreen from "~/components/AppScreen";
 import BottomSheet, { RefType } from "~/components/BottomSheet";
-import Picker from "~/components/Picker";
+import Picker, { PickerItem } from "~/components/Picker";
 import Typography from "~/components/Typography";
 
+type FormValues = {
+  genres: PickerItem[];
+};
 type Props = {};
-
 const Discover = ({}: Props) => {
   const ref = useRef<RefType>(null);
   const [showFilters, setShowFilters] = useState(true);
+
+  const { register, control } = useForm<FormValues>({ values: { genres: [] } });
+  const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
 
   const { data: genres } = useGetMovieGenres();
 
@@ -34,7 +40,18 @@ const Discover = ({}: Props) => {
             <Typography variant="TITLE" className="pb-4">
               Filters
             </Typography>
-            <Picker data={genres?.map((i) => ({ label: i.name, value: i.id.toString() }))} />
+            <Controller
+              control={control}
+              name="genres"
+              render={({ field }) => (
+                <Picker
+                  multiple
+                  label="Genres"
+                  {...field}
+                  data={genres?.map((i) => ({ label: i.name, value: i.id.toString() }))}
+                />
+              )}
+            />
           </View>
         </ScrollView>
       </BottomSheet>
