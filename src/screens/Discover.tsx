@@ -10,13 +10,16 @@ import Typography from "~/components/Typography";
 
 type FormValues = {
   genres: PickerItem[];
+  sortBy?: PickerItem;
 };
 type Props = {};
 const Discover = ({}: Props) => {
   const ref = useRef<RefType>(null);
   const [showFilters, setShowFilters] = useState(true);
 
-  const { register, control } = useForm<FormValues>({ values: { genres: [] } });
+  const { register, control } = useForm<FormValues>({
+    values: { genres: [], sortBy: undefined },
+  });
   const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
 
   const { data: genres } = useGetMovieGenres();
@@ -34,7 +37,12 @@ const Discover = ({}: Props) => {
           Press me
         </AppButton>
       </View>
-      <BottomSheet activeHeight={700} backDropColor="#00000055" backgroundColor="#222" ref={ref}>
+      <BottomSheet
+        activeHeight={700}
+        backDropColor="#00000055"
+        backgroundColor="#222"
+        ref={ref}
+      >
         <ScrollView className="h-[200]">
           <View className="w-full items-center p-2">
             <Typography variant="TITLE" className="pb-4">
@@ -48,9 +56,17 @@ const Discover = ({}: Props) => {
                   multiple
                   label="Genres"
                   {...field}
-                  data={genres?.map((i) => ({ label: i.name, value: i.id.toString() }))}
+                  data={genres?.map((i) => ({
+                    label: i.name,
+                    value: i.id.toString(),
+                  }))}
                 />
               )}
+            />
+            <Controller
+              control={control}
+              name="sortBy"
+              render={({ field }) => <Picker label="Sort By" {...field} />}
             />
           </View>
         </ScrollView>
