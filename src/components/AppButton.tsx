@@ -17,7 +17,10 @@ export const Press = ({ children, ...props }: PressableProps) => {
   );
 };
 
-type Props = PressableProps & { children: ReactNode; onPress?: ((event: GestureResponderEvent) => void) | undefined };
+type Props = PressableProps & {
+  children: ReactNode;
+  onPress?: ((event: GestureResponderEvent) => void) | undefined;
+};
 
 const AppButton = ({ children, onPress, ...props }: Props) => {
   return (

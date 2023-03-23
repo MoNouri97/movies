@@ -29,9 +29,15 @@ const Movie = ({ route }: Props) => {
 
   return (
     <AppScrollingScreen scrollViewProps={{ className: "relative", stickyHeaderIndices: [0] }}>
-      <Image source={{ uri: getImage(data!.poster_path, "500") }} className="fixed top-0 h-[70vh]" />
+      <Image
+        source={{ uri: getImage(data!.poster_path, "500") }}
+        className="fixed top-0 h-[70vh]"
+      />
       <View className="absolute top-0 z-10 h-[70vh]">
-        <LinearGradient colors={["rgba(0, 0, 0, 0)", "rgb(23,23,23)"]} className="h-full w-screen" />
+        <LinearGradient
+          colors={["rgba(0, 0, 0, 0)", "rgb(23,23,23)"]}
+          className="h-full w-screen"
+        />
         <View className="absolute bottom-0 w-full pb-4">
           <FontAwesome
             onPress={() => historyContext?.toggleFavorite(data)}

@@ -12,7 +12,13 @@ type Props = {
   title: string;
 };
 
-const HMoviesSection = ({ title, data = [], isLoading = false, onMoviePress, onSeeAllPress }: Props) => {
+const HMoviesSection = ({
+  title,
+  data = [],
+  isLoading = false,
+  onMoviePress,
+  onSeeAllPress,
+}: Props) => {
   return (
     <>
       <View className="ml-6 flex justify-start">

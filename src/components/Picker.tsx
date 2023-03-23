@@ -68,16 +68,8 @@ const Picker = <T extends PickerItem[] | PickerItem>({
   return (
     <View className="w-full overflow-hidden">
       <Typography className="m-2">{label}</Typography>
-      <Press
-        onPress={openModal}
-        className="w-full  rounded-2xl bg-neutral-700 p-3"
-      >
-        <Modal
-          onRequestClose={closeModal}
-          visible={modalShown}
-          animationType="slide"
-          transparent
-        >
+      <Press onPress={openModal} className="w-full  rounded-2xl bg-neutral-700 p-3">
+        <Modal onRequestClose={closeModal} visible={modalShown} animationType="slide" transparent>
           <View className="w-full bg-neutral-900">
             <FlatList
               contentContainerStyle={{
@@ -94,9 +86,7 @@ const Picker = <T extends PickerItem[] | PickerItem>({
                     setModalShown(false);
                     if (multiple && Array.isArray(value)) {
                       if (!!value.find((val) => val.value == item.value)) {
-                        return onChange(
-                          value.filter((val) => val.value != item.value)
-                        );
+                        return onChange(value.filter((val) => val.value != item.value));
                       }
                       onChange([...value, item]);
                     } else {
@@ -129,10 +119,7 @@ const TagsDisplay = ({ tags }: { tags: PickerItem[] }) => {
   return (
     <View className="mt-2 flex-row flex-wrap items-center ">
       {tags.map((tag) => (
-        <View
-          key={tag.value}
-          className="m-1 rounded-xl bg-neutral-700/40 py-2 px-4 text-center"
-        >
+        <View key={tag.value} className="m-1 rounded-xl bg-neutral-700/40 py-2 px-4 text-center">
           <Typography>{tag.label}</Typography>
         </View>
       ))}

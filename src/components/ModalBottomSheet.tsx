@@ -8,7 +8,13 @@ type Props = {
   children?: ReactNode;
 };
 
-const BottomSheet = ({ style: containerStyle, modalProps, children, center = false, ...props }: Props) => {
+const BottomSheet = ({
+  style: containerStyle,
+  modalProps,
+  children,
+  center = false,
+  ...props
+}: Props) => {
   return (
     <Modal statusBarTranslucent animationType="slide" transparent {...modalProps}>
       <View className="flex-1 flex-col-reverse bg-white/10">

@@ -1,4 +1,9 @@
-import { DMSans_400Regular, DMSans_500Medium, DMSans_700Bold, useFonts } from "@expo-google-fonts/dm-sans";
+import {
+  DMSans_400Regular,
+  DMSans_500Medium,
+  DMSans_700Bold,
+  useFonts,
+} from "@expo-google-fonts/dm-sans";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";

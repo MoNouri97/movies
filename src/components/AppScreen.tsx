@@ -38,7 +38,14 @@ export const AppScrollingScreen: React.FC<Props> = ({
   const ref = useRef<ScrollView>(null);
   const ContainerView = safe ? SafeAreaView : View;
   return (
-    <View style={{ height: SCREEN.height, position: "relative", width: SCREEN.width }} className="bg-neutral-900">
+    <View
+      style={{
+        height: SCREEN.height,
+        position: "relative",
+        width: SCREEN.width,
+      }}
+      className="bg-neutral-900"
+    >
       {bg && (
         <Image
           source={require("assets/Background.png")}
@@ -100,7 +107,12 @@ export const AppScreen = ({
       className="flex-1 bg-neutral-900"
     >
       <View className={`grow ${center ? "justify-evenly" : "justify-start"} relative h-screen`}>
-        {bg && <Image source={require("assets/Background.png")} className="absolute top-0 h-full opacity-50" />}
+        {bg && (
+          <Image
+            source={require("assets/Background.png")}
+            className="absolute top-0 h-full opacity-50"
+          />
+        )}
         {children}
       </View>
     </ContainerView>

@@ -37,12 +37,7 @@ const Discover = ({}: Props) => {
           Press me
         </AppButton>
       </View>
-      <BottomSheet
-        activeHeight={700}
-        backDropColor="#00000055"
-        backgroundColor="#222"
-        ref={ref}
-      >
+      <BottomSheet activeHeight={700} backDropColor="#00000055" backgroundColor="#222" ref={ref}>
         <ScrollView className="h-[200]">
           <View className="w-full items-center p-2">
             <Typography variant="TITLE" className="pb-4">

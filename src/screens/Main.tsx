@@ -20,8 +20,14 @@ const Main = ({ navigation }: NativeStackScreenProps<ParamList, "Main">) => {
     });
     return arr;
   }, [data]);
-  const recent = useMemo(() => historyContext?.recent.map(detailedMovieToSimple), [historyContext?.recent]);
-  const favorites = useMemo(() => historyContext?.favorites.map(detailedMovieToSimple), [historyContext?.favorites]);
+  const recent = useMemo(
+    () => historyContext?.recent.map(detailedMovieToSimple),
+    [historyContext?.recent]
+  );
+  const favorites = useMemo(
+    () => historyContext?.favorites.map(detailedMovieToSimple),
+    [historyContext?.favorites]
+  );
   return (
     <AppScrollingScreen safe bg>
       <Typography className="m-6 px-4 text-2xl">Looking for something to watch ?</Typography>
