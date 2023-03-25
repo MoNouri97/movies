@@ -2,37 +2,30 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import api from "~/api/config";
 import { DetailedMovie, MoviesResponse, SimpleMovie } from "~/domain/movie";
 
-export const useGetMovies = ({
-  genres,
-  rating,
-  sort,
-}: {
-  genres?: string[];
-  rating?: [string, string];
-  sort?: string;
-} = {}) => {
+export const useGetMovies = (
+  options: {
+    genres?: string[];
+    rating?: [string, string];
+    sort?: string;
+  } = {}
+) => {
   return useInfiniteQuery({
-    queryKey: ["movies", { genres, rating, sort }],
+    queryKey: ["movies", options],
     queryFn: async ({ pageParam = 1 }) => {
+      const { genres, rating, sort } = options;
       const currentDate = new Date().toISOString().slice(0, 10);
-      // let info = "";
       const param = new URLSearchParams();
       param.append("page", pageParam);
       param.append("primary_release_date.lte", currentDate);
-      param.append("vote_count", "50");
+      param.append("vote_count", "20");
 
-      // if (genres) info += "&with_genres=" + genres.join("|");
       if (genres) param.append("with_genres", genres.join("|"));
       if (rating) {
-        const [minR, maxR] = rating;
+        const [minR = 0, maxR = 10] = rating;
         param.append("vote_average.gte", minR.toString());
         param.append("vote_average.lte", maxR.toString());
-        // info += "&vote_average.gte=" + minR;
-        // info += "&vote_average.lte=" + maxR;
       }
       if (sort) param.append("sort_by", sort);
-      // if (sort) info += "&sort_by=" + sort;
-      // const res = await fetch(`/api/movies?page=${page}${info}`);
 
       param.toString();
       const response = await api.get<MoviesResponse>(

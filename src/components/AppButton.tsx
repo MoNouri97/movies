@@ -1,5 +1,13 @@
 import { ReactNode } from "react";
-import { GestureResponderEvent, Platform, Pressable, PressableProps, View } from "react-native";
+import {
+  GestureResponderEvent,
+  Platform,
+  Pressable,
+  PressableProps,
+  StyleProp,
+  View,
+  ViewStyle,
+} from "react-native";
 import Typography from "~/components/Typography";
 
 export const Press = ({ children, ...props }: PressableProps) => {
@@ -18,13 +26,14 @@ export const Press = ({ children, ...props }: PressableProps) => {
 };
 
 type Props = PressableProps & {
+  style?: StyleProp<ViewStyle>;
   children: ReactNode;
   onPress?: ((event: GestureResponderEvent) => void) | undefined;
 };
 
-const AppButton = ({ children, onPress, ...props }: Props) => {
+const AppButton = ({ children, onPress, style, ...props }: Props) => {
   return (
-    <View className="overflow-hidden rounded-3xl border-2 border-neutral-400">
+    <View className="overflow-hidden rounded-xl border-2 border-neutral-400" style={style}>
       <Press onPress={onPress} {...props}>
         <View className="px-6 py-2">
           <Typography variant="SUBTITLE" className="text-neutral-400">

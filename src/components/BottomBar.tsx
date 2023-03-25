@@ -18,7 +18,7 @@ const buttons: {
 const BottomBar = () => {
   const { navigate } = useNavigation<NavigationProp<ParamList>>();
   return (
-    <View className="absolute bottom-8 left-4 right-4 h-16 flex-row rounded-b-3xl rounded-t-lg bg-neutral-700/80">
+    <View className="absolute bottom-2 left-4 right-4 h-16 flex-row rounded-b-3xl rounded-t-lg bg-neutral-700/90">
       {buttons.map((btn) => (
         <IconButtom
           key={btn.name}

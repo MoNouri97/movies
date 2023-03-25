@@ -18,3 +18,12 @@ export const formatMoney = (x: number) => {
   }
   return `${numberWithComma(x)} \$`;
 };
+// regex to find all _ or .
+export const formatString = (str: string) => {
+  return str
+    .replace(".desc", "")
+    .replace(/[_]/g, " ")
+    .split(" ")
+    .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+    .join(" ");
+};

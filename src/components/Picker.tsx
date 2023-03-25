@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { FlatList, Modal, View } from "react-native";
 import { Press } from "~/components/AppButton";
 import Typography from "~/components/Typography";
+import { formatString } from "~/helpers/format";
 
 export type PickerItem = {
   value: string;
@@ -63,11 +64,12 @@ const Picker = <T extends PickerItem[] | PickerItem>({
   return (
     <View className="w-full overflow-hidden">
       <Typography className="m-2">{label}</Typography>
-      <Press onPress={openModal} className="w-full  rounded-2xl bg-neutral-700 p-3">
+      <Press onPress={openModal} className="rounded-2xl bg-neutral-700 p-3">
         <Modal onRequestClose={closeModal} visible={modalShown} animationType="slide" transparent>
-          <View className="w-full bg-neutral-900">
+          <View className="h-full w-full bg-neutral-900">
             <FlatList
               contentContainerStyle={{
+                flexGrow: 1,
                 justifyContent: "center",
               }}
               data={data}
@@ -126,6 +128,6 @@ const TagsDisplay = ({ tags, remove }: { tags: PickerItem[]; remove: (value: str
   );
 };
 
-export const stringsToPickerData = (value: any): PickerItem[] => {
-  return value.map((s: string) => ({ value: s, label: s }));
+export const toPickerData = (value: string[]): PickerItem[] => {
+  return value.map((s: string) => ({ value: s, label: formatString(s) }));
 };
