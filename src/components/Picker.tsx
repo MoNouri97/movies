@@ -1,4 +1,5 @@
-import { forwardRef, useMemo, useState } from "react";
+import { Feather } from "@expo/vector-icons";
+import { useMemo, useState } from "react";
 import { FlatList, Modal, View } from "react-native";
 import { Press } from "~/components/AppButton";
 import Typography from "~/components/Typography";
@@ -8,12 +9,12 @@ export type PickerItem = {
   label: string;
 };
 
-type Props<T extends PickerItem[] | PickerItem> = (T extends Array<PickerItem>
-  ? { multiple?: true }
-  : { multiple?: never }) & {
-  value?: T;
+type Props = (
+  | { multiple: true; value?: PickerItem[]; onChange: (v?: PickerItem[]) => void }
+  | { multiple?: never; value?: PickerItem; onChange: (v?: PickerItem) => void }
+) & {
   data?: PickerItem[];
-  onChange: (value: any) => void;
+
   label: string;
 };
 
@@ -28,13 +29,13 @@ const Picker = <T extends PickerItem[] | PickerItem>({
   onChange,
   label,
   multiple,
-}: Props<T>) => {
+}: Props) => {
   const [modalShown, setModalShown] = useState(false);
 
   const selected = useMemo(() => {
     if (!value) return "";
     if (!data) return "";
-    if (multiple || Array.isArray(value)) {
+    if (multiple) {
       return "";
     }
     return data.find((item) => value.value == item.value)?.label || "";
@@ -51,6 +52,12 @@ const Picker = <T extends PickerItem[] | PickerItem>({
     setTimeout(() => {
       onChange(undefined);
     }, 0);
+  };
+  const removeValue = (toRemove: string) => {
+    if (!multiple) {
+      return;
+    }
+    return onChange(value?.filter((val) => val.value != toRemove));
   };
 
   return (
@@ -71,11 +78,11 @@ const Picker = <T extends PickerItem[] | PickerItem>({
                   className="my-1 mx-4 items-center rounded-xl bg-neutral-800 p-4"
                   onPress={() => {
                     setModalShown(false);
-                    if (multiple && Array.isArray(value)) {
-                      if (!!value.find((val) => val.value == item.value)) {
-                        return onChange(value.filter((val) => val.value != item.value));
+                    if (multiple) {
+                      if (!!value?.find((val) => val.value == item.value)) {
+                        return removeValue(item.value);
                       }
-                      onChange([...value, item]);
+                      onChange([...(value ?? []), item]);
                     } else {
                       onChange(item);
                     }
@@ -96,19 +103,24 @@ const Picker = <T extends PickerItem[] | PickerItem>({
           <Typography>{selected}</Typography>
         )}
       </Press>
-      {multiple && <TagsDisplay tags={value as PickerItem[]} />}
+      {multiple && <TagsDisplay remove={removeValue} tags={value as PickerItem[]} />}
     </View>
   );
 };
-export default forwardRef(Picker);
+export default Picker;
 
-const TagsDisplay = ({ tags }: { tags: PickerItem[] }) => {
+const TagsDisplay = ({ tags, remove }: { tags: PickerItem[]; remove: (value: string) => void }) => {
   return (
     <View className="mt-2 flex-row flex-wrap items-center ">
       {tags.map((tag) => (
-        <View key={tag.value} className="m-1 rounded-xl bg-neutral-700/40 py-2 px-4 text-center">
-          <Typography>{tag.label}</Typography>
-        </View>
+        <Press
+          onPress={() => remove(tag.value)}
+          key={tag.value}
+          className="m-1 flex-row items-center rounded-xl bg-neutral-700/40 py-2 px-4 text-center"
+        >
+          <Typography className="mr-2">{tag.label}</Typography>
+          <Feather name="x" color="#ffffff55" size={12} />
+        </Press>
       ))}
     </View>
   );
