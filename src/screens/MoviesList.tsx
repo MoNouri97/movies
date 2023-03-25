@@ -11,36 +11,18 @@ import { SimpleMovie } from "~/domain/movie";
 import { ParamList } from "~/domain/navigation";
 import { detailedMovieToSimple } from "~/helpers/format";
 
-type Props = NativeStackScreenProps<ParamList, "Movies" | "Favorites">;
+type Props = NativeStackScreenProps<ParamList, "Movies" | "Favorites" | "Discover">;
 type ListProps = Props & {
   data?: SimpleMovie[];
   isLoading: boolean;
   children?: ReactNode;
 };
 
-const MoviesList = ({ navigation, data, isLoading, children }: ListProps) => {
+const MoviesListScreen = (props: ListProps) => {
   return (
     <AppScreen>
       <Image source={require("assets/Background.png")} className=" absolute opacity-40" />
-      {isLoading && (
-        <View className="items-center p-4">
-          <Typography variant="TITLE">Loading ...</Typography>
-        </View>
-      )}
-      {!!data?.length && (
-        <FlatList
-          data={data}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.navigate("Movie", { id: item.id })}>
-              <MovieCard movie={item} showTitle />
-            </TouchableOpacity>
-          )}
-          keyExtractor={(movie) => `${movie.id}`}
-          ListFooterComponent={() => <View>{children}</View>}
-          numColumns={2}
-          contentContainerStyle={{ paddingBottom: 150, alignItems: "center" }}
-        />
-      )}
+      <MoviesList {...props} />
     </AppScreen>
   );
 };
@@ -55,17 +37,52 @@ export const TrendingMovies = (props: Props) => {
     return arr;
   }, [data]);
   return (
-    <MoviesList {...props} {...{ isLoading, data: trendingMovies }}>
+    <MoviesListScreen {...props} {...{ isLoading, data: trendingMovies }}>
       <AppButton disabled={isFetchingNextPage} onPress={() => fetchNextPage()}>
         {isFetchingNextPage ? "Loading" : "Next"}
       </AppButton>
-    </MoviesList>
+    </MoviesListScreen>
   );
 };
 
 export const FavoriteMovies = (props: Props) => {
   const { favorites } = useContext(HistoryContext)!;
   const data = useMemo(() => favorites.map(detailedMovieToSimple), [favorites]);
-  return <MoviesList {...props} data={data} isLoading={false} />;
+  return <MoviesListScreen {...props} data={data} isLoading={false} />;
 };
-export default MoviesList;
+export default MoviesListScreen;
+
+export const MoviesList = ({ isLoading, data, children, navigation }: ListProps) => {
+  return (
+    <>
+      {isLoading && (
+        <View className="items-center p-4">
+          <Typography variant="TITLE">Loading ...</Typography>
+        </View>
+      )}
+      {!!data?.length && (
+        <FlatList
+          data={data}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("Movie", {
+                  id: item.id,
+                })
+              }
+            >
+              <MovieCard movie={item} showTitle />
+            </TouchableOpacity>
+          )}
+          keyExtractor={(movie) => `${movie.id}`}
+          ListFooterComponent={() => <View>{children}</View>}
+          numColumns={2}
+          contentContainerStyle={{
+            paddingBottom: 150,
+            alignItems: "center",
+          }}
+        />
+      )}
+    </>
+  );
+};

@@ -2,9 +2,17 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import api from "~/api/config";
 import { DetailedMovie, MoviesResponse, SimpleMovie } from "~/domain/movie";
 
-export const useGetMovies = (genres?: number[], rating?: [number, number], sort?: string) => {
+export const useGetMovies = ({
+  genres,
+  rating,
+  sort,
+}: {
+  genres?: string[];
+  rating?: [string, string];
+  sort?: string;
+} = {}) => {
   return useInfiniteQuery({
-    queryKey: ["movies"],
+    queryKey: ["movies", { genres, rating, sort }],
     queryFn: async ({ pageParam = 1 }) => {
       const currentDate = new Date().toISOString().slice(0, 10);
       // let info = "";

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { forwardRef, useMemo, useState } from "react";
 import { FlatList, Modal, View } from "react-native";
 import { Press } from "~/components/AppButton";
 import Typography from "~/components/Typography";
@@ -17,7 +17,6 @@ type Props<T extends PickerItem[] | PickerItem> = (T extends Array<PickerItem>
   label: string;
 };
 
-const Seperator = () => <View className="h-1 bg-neutral-900" />;
 const EmptyListItem = () => (
   <View className="flex-1 items-center justify-center">
     <Typography>No Options</Typography>
@@ -39,14 +38,6 @@ const Picker = <T extends PickerItem[] | PickerItem>({
       return "";
     }
     return data.find((item) => value.value == item.value)?.label || "";
-    // if (multiple) {
-    //   return data.filter((item) => {
-    //     const found = value.find((val) => val.value == item.value);
-    //     return found != undefined;
-    //   });
-    // } else {
-    //   return data.find((item) => value.value == item.value)?.label || "";
-    // }
   }, [data, value]);
 
   const closeModal = () => {
@@ -54,15 +45,12 @@ const Picker = <T extends PickerItem[] | PickerItem>({
   };
   const openModal = async () => {
     setModalShown(true);
-    // if (onOpen) {
-    //   onOpen();
-    // }
   };
   const clear = () => {
     setModalShown(false);
-    // setTimeout(() => {
-    //   setValue(undefined);
-    // }, 0);
+    setTimeout(() => {
+      onChange(undefined);
+    }, 0);
   };
 
   return (
@@ -78,7 +66,6 @@ const Picker = <T extends PickerItem[] | PickerItem>({
               data={data}
               ListEmptyComponent={EmptyListItem}
               keyExtractor={(item) => item.value}
-              // ItemSeparatorComponent={Seperator}
               renderItem={({ item }) => (
                 <Press
                   className="my-1 mx-4 items-center rounded-xl bg-neutral-800 p-4"
@@ -113,7 +100,7 @@ const Picker = <T extends PickerItem[] | PickerItem>({
     </View>
   );
 };
-export default Picker;
+export default forwardRef(Picker);
 
 const TagsDisplay = ({ tags }: { tags: PickerItem[] }) => {
   return (
@@ -125,4 +112,8 @@ const TagsDisplay = ({ tags }: { tags: PickerItem[] }) => {
       ))}
     </View>
   );
+};
+
+export const stringsToPickerData = (value: any): PickerItem[] => {
+  return value.map((s: string) => ({ value: s, label: s }));
 };
