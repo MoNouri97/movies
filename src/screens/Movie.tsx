@@ -54,16 +54,18 @@ const Movie = ({ route }: Props) => {
       </View>
       <View className="z-10 min-h-[600] bg-neutral-900 px-4">
         <Tags genres={data.genres} />
-        <View className="flex-row items-center justify-around py-4">
-          <View className="mx-2 flex-grow rounded-xl bg-neutral-800 px-6  py-8">
-            <Typography>Budget</Typography>
-            <Typography variant="SUBTITLE">{formatMoney(data.budget)}</Typography>
+        {(!!data.budget || !!data.revenue) && (
+          <View className="flex-row items-center justify-around py-4">
+            <View className="mx-2 flex-grow rounded-xl bg-neutral-800 px-6  py-8">
+              <Typography>Budget</Typography>
+              <Typography variant="SUBTITLE">{formatMoney(data.budget)}</Typography>
+            </View>
+            <View className="mx-2 flex-grow rounded-xl bg-gold/30 px-6  py-8">
+              <Typography className="text-gold">Revenue</Typography>
+              <Typography variant="SUBTITLE">{formatMoney(data.revenue)}</Typography>
+            </View>
           </View>
-          <View className="mx-2 flex-grow rounded-xl bg-gold/30 px-6  py-8">
-            <Typography className="text-gold">Revenue</Typography>
-            <Typography variant="SUBTITLE">{formatMoney(data.revenue)}</Typography>
-          </View>
-        </View>
+        )}
         <Typography variant="SUBTITLE" className="my-4">
           The Plot
         </Typography>

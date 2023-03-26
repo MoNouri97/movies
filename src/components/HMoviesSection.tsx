@@ -1,5 +1,5 @@
 import { FlatList, TouchableOpacity, View } from "react-native";
-import MovieCard from "~/components/MovieCard";
+import MovieCard, { CARD_HEIGHT, CARD_WIDTH } from "~/components/MovieCard";
 import SectionTitle from "~/components/SectionTitle";
 import Typography from "~/components/Typography";
 import { SimpleMovie } from "~/domain/movie";
@@ -25,7 +25,12 @@ const HMoviesSection = ({
         <SectionTitle title={title} onSeeAllPress={onSeeAllPress} />
       </View>
       {isLoading ? (
-        <Typography>Loading</Typography>
+        <View
+          className="mx-2 my-4 items-center  justify-center rounded-xl bg-slate-500/10"
+          style={{ height: CARD_HEIGHT, width: CARD_WIDTH }}
+        >
+          <Typography>Loading</Typography>
+        </View>
       ) : (
         <View>
           <FlatList
